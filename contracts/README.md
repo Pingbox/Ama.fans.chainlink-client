@@ -1,69 +1,4 @@
-https://jeancvllr.medium.com/solidity-tutorial-all-about-assembly-5acdfefde05c
 
-
-Avalanche Mainent anf fuji testnet details for CHainlink: https://docs.chain.link/docs/link-token-contracts/
-
-Link token mainet 0x5947BB275c521040051D82396192181b413227A3
-Link token on FujiTestnetL: 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
-
-
-### v 0.3
-
-1. Fee is now being charged by lastpost on successful claim on the message
-2. Fee is now being deducted when the message is being replaced by another message with higher value
-3. Most of the functions are shifted to Postslib
-4. Reputation contract is replaced with ReputationLib.
-5. Every reputation related to the Time has been deleted as it wasnt adding much value.
-6. User is divided into three categories: General, Celebrity and Influencer. default is general but if a user want 
-    to change the UserType , It has to be approved by governance.
-7. User cam only claim post by sending a reply to the message and the message will automatically be claimed.
-    Now, claimPost is calling another function replyPost in the Postslib. User struct now has an addtional field 
-            ```bytes32[] replyReceived;```
-    Every post which received a reply will be pushed into this array; it will be useful whenever user would like 
-    to convert the replyinto NFT.
-    Balances will be updated for both the sender and the receiver
-    Post struct also has a new field called as _replyhash which is the ipfs hash of the reply.
-    from this version onwards, all the posts will be there on the smart contract and will never be deleted 
-    if somebody wants to check the provenance of the NFT.
-8. PostClaim event has now been replaced with     
-
-    ```event ReplyReceived (address indexed sender, address indexed recipient, bytes32 _postHash, bytes _replyHash, uint256 value);```
-
-9. Reputation has been divided into two kinds of reputation 
-
-   ```
-       /*
-    * markedJunk: messages which have been sent by this user and marked by junk by other users
-    */
-    struct SentReputation{
-        uint256 sent;
-        uint256 totalValueSpent;
-        uint256 markedJunk; /*when the user who received the reply marked it as a junk reply */
-        uint256 claimed; /*messages that were sent by me and has received a reply */
-        uint256 deleted; /*when the recipient deletes the message */
-        uint256 replaced; /* when the message is replaced by another messaged with higher value attached */
-        uint256 reclaimed; /*when the message time has expired and user reclaimed the fund */
-        uint256 highesteBid; /*highest value that i have attached till now to any message sent  */
-        uint256 uniqueAddresses;
-        mapping(address=> uint256) addresses; /* to which the messages has been sent */
-    }
-    struct ReceiveReputation{
-        uint256 received;
-        uint256 totalValueReceived;
-        uint256 markedJunk; /*when the user who received my reply marked it as a junk because she didnt like it */
-        uint256 claimed; /* Number of replies that i have sent to the messages that i have received */
-        uint256 deleted; /*when the user who received this message, deletes it */
-        uint256 highesteBid; /*highest bid that has been made to reach my Inbox */
-        uint256 uniqueAddresses;
-        mapping(address=> uint256) addresses; /* from which the messages has been received */
-    }
-   ```
-   
-   
-   
-   
-   
-   
 How to Begin and Deploy:
 
 Link contracts 
@@ -210,9 +145,9 @@ AmaClientProxy: 0x92Fc84e38ce9Cb55e58Bdc53b1f37b4F50653A81 (Must be used for twi
 
 FujiTestnet Deployment:
 Operator.sol 0xf6bB26A724655553A5046b62D41e29bB29DA1AeE
-ProxyAdmin: 0x281D8fDA330Fbd903fd4F79Af949eDD380135db2
-AMAClient: 0x468dD2b7C3DeCAF7Ac9a17dbF45d01C117Efa643
-TransparentUpgradeableProxy: 0x565a15289B89A80d2d6D8443d0A9A312814AAd71
+ProxyAdmin: 0x291bbf7F5712ea859C0D8851913e32a47D95FDB9
+AMAClient: 0xD619E68A3b7622024929903E1Cd6Cd9EF269ceE7
+TransparentUpgradeableProxy: 0x4173d1D66CC6aD2735945e7763754e003846E20F
 
 
 
