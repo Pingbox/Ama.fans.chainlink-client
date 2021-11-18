@@ -1,19 +1,11 @@
+##  How to Begin and Deploy:
 
-How to Begin and Deploy:
-
-Link contracts 
-https://docs.chain.link/docs/fulfilling-requests/
-https://docs.chain.link/docs/link-token-contracts/
-
+### Link contracts 
+- [External Adapter request]
+- [Chainlink Contracts ]
 
 
-Operator.sol deployed on RinkeBy : 0x7fc02a01709718b25BF6E2F48D575Fef4682250F
-AMATwitterClient address on etherscan is: 0x70d8f4d29ea5086Ae85B61D08849D0fC1E317860
-
-
-
-
-Job spec for twitter verification
+##### Job spec for twitter verification
 
 ```
 
@@ -68,39 +60,17 @@ Points to not in the above jobSpec:
 
    
    
-step6: Deploy contract AMATwitterClient.sol and transfer link tokens to the deployed address. These links token will 
-be charged by the oracle contract for every invocation.
 
-Step7: Call the function verifyUsername with relevant params and ideally you should see a new RUN for the job 
-created in the step 5 on the chainlin node created in the step1.
-
-
-NOTE: Do not intialize implementation contracts from the owner of ProxyAdmin. It will have side effects.
-for amafans.eth
-RinkeBy Addresses
-Operator.sol deployed at : 0x7fc02a01709718b25BF6E2F48D575Fef4682250F
-//PublicKeyResolver: 0xad07269c9Ac10fbE29A39575f3A811AD063C8f32 ||| officialPublicKeyRsolverOnMainnet: 0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41
-officialENS RinkeBy: 0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e
-Namehash for amafanstest1.eth : 0xad6c3a0d80abb7a479548ef46b2b03fc0f808c44760d4c6e015083d9616d6470
-Namewrapper: 0x0000000000000000000000000000000000000000
-
-
-
-
-NOTE: dont deploy poxyAdmin and AMAClient through deploy_amaclient.js script as somehow the contracts are not getting deployed (both AmaClient and Proxyadmin)
-Deploy them from remix and then use their address to deploy TransparentUpgradeableProxy contract.
-
-
-If you are doing it for the first time on a new chainID
+ #### If you are doing it for the first time on a new chainID
 1. Make a chainlink node and deploy a server where your chainlink adapter will be run.
 2. Make a bridge with this chainlink adapter on the chainlink node and Name it something.
 3. Make a job on your chainlink node with the Jobspec defined above (dont forget to chain the type name int he task and rename it the bridge name).
 4. Deploy operator.sol 
-5. Got to your CHainlink node from step1 under jeys section and find out the address of the node . Call methos setAuthorisedSenders with the 
+5. Got to your CHainlink node from step1 under keys section and find out the address of the node . Call methos setAuthorisedSenders with the 
 address of this node address; this is just to allow your node to send response to the operator.sol example .["0xC344890Cf9844E30DeeE57Ee868E57600043434a"]
 6. Deploy PublicKeyResolver with ens contract address or use the official one (since it is not behind proxy, The operator mappig will be gone if you do redeployment)
 7. Deploy ProxyAdmin or use the existing one ( if you already have deployed for Reputation/Posts contracts).
-8. Deploy the AmaClient.sol 
+8. Deploy the AmaCLClient.sol 
 9. Make sure you do steps 7 & 8 from remix only, There is some problem with hardhat scripts ( Not actually deploying these contracts).
 10. Now deploy TransparentUpgradeableProxy from scripts/deploy_amaclient.js using the address of PoxyAdmin and AmaClient. Call it AmaClientProxy.
 11. Go to you ENS app and change the controller of the concerned domain to the address of AmaClientProxy.
@@ -134,53 +104,50 @@ reverse record for the address.
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/
 
 
-##FujiTestnet Deployment:
-Operator.sol 0xf6bB26A724655553A5046b62D41e29bB29DA1AeE
-ProxyAdmin: 0x291bbf7F5712ea859C0D8851913e32a47D95FDB9
-AMAClClient: 0xD619E68A3b7622024929903E1Cd6Cd9EF269ceE7 //Dont use this contract directly, Use TransparentUpgradeableProxy insted as a proxy for this contract.
-ENSRegistry: 0x970e7636f5e3A09a41057D6bC9E54a20CAfbf4a3
-PublicKeyResolver: 0xe30C409CF769912f9359625c6B33bc9959d0E95f
-TransparentUpgradeableProxy: 0x4173d1D66CC6aD2735945e7763754e003846E20F //interact with this contract with ABI of AMAClClient contract.
+##### FujiTestnet Deployment:
+- ###### _Operator.sol_ :  0xf6bB26A724655553A5046b62D41e29bB29DA1AeE
+- ###### _ProxyAdmin_: 0x291bbf7F5712ea859C0D8851913e32a47D95FDB9
+- ###### _AMAClClient_: 0xD619E68A3b7622024929903E1Cd6Cd9EF269ceE7 //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
+- ###### _ENSRegistry_: 0x970e7636f5e3A09a41057D6bC9E54a20CAfbf4a3
+- ###### _PublicKeyResolver_: 0xe30C409CF769912f9359625c6B33bc9959d0E95f
+- ###### _TransparentUpgradeableProxy_: 0x4173d1D66CC6aD2735945e7763754e003846E20F //interact with this contract with ABI of AMAClClient contract.
 
 
 
 
 ## Functions of Interest:
-Step1: Post a tweet with your address and #amafans tag on your twitter. 
-Step2: Call function ```requestVerification``` with the same address that you posted in twitter.
-Step3: Keep calling getEncodedData function, It will give you bytes if the request has been completed otheriwese it will raise rthis error 
-```executin reverted: Request is already pending"
-Step4: TO cross cheeck, you cann call function ```userDetailsTwitter`` function and you will get the details of the useer which 
-have been fetched from twitter.
-Step5: It is time to call claimSubDomain function wih\th the same address. In the backend, It register the records on the 
-ENS contract deployed on the Avax chain and alos creates a domain with the twitter details.
-FOr example, My twitter username is graphicaldot which doesnt have any special chars so on the ENS contracts, following records will 
-be created. graphicaldot.amafans will be associated with my address .
-
-Please note: These records will exist on the ENS registry not on AMAEnsClient (which is just being used to interact with ENS registry).
-Also, the corresponding text records are present in the PublicResolver contract. The three keys which will be created for each subdomains 
-are : "name" = Name of the user on twitter
+- Post a tweet with your address and #amafans tag on your twitter. 
+- Call function ```requestVerification``` with the same address that you posted in twitter.
+- Keep calling getEncodedData function, It will give you bytes if the request has been completed otheriwese it will raise rthis error  ```execution reverted: Request is already pending```
+- To cross cheeck, you cann call function ```userDetailsTwitter`` function and you will get the details of the useer which  have been fetched from twitter.
+-  It is time to call ```claimSubDomain``` function with the same address. In the backend, It register the records on the ENS contract deployed on the Avax chain and alos creates a domain with the twitter details.```For example, My twitter username is graphicaldot which doesnt have any special chars so on the ENS contracts, following records will be created. graphicaldot.amafans will be associated with my address .```
+> Please note: These records will exist on the ENS registry not on AMAEnsClient (which is just being used to interact with ENS registry). Also, the corresponding text records are present in the PublicResolver contract. The three keys which will be created for each subdomains 
+are : 
+>"name" = Name of the user on twitter
 "com.twitter" = username of the user on twitter.
 "twitterID" = twitterID of the user 
 "avatar" = Profile image of the user on twitter
 "isTwitterverified" =  If the user is verified by twitter or not.
 
-On ENS registry and public resolver, The records are not represented by "graphicaldot.amafans" but by the nodeHash.
-You can get the NameHash aka nodehash , ex Nodehahs of graphicaldot.amafans is 0x5e118688372471fd6a83414a4118bbe5b310119eb1eb60e2fc159f3f65e0597f.
+- On ENS registry and public resolver, The records are not represented by "graphicaldot.amafans" but by the nodeHash. You can get the NameHash aka nodehash , ex Nodehahs of graphicaldot.amafans is 0x5e118688372471fd6a83414a4118bbe5b310119eb1eb60e2fc159f3f65e0597f.
 
-One you calim subDomain, you can call ```owner``` fuction on ENSRegistry contrct with the NameHash of the domain and 
-it will give you the address of the owner.
-You can also call ```getLabel ``` function on the AMACLClient contract with the address and you will get the domain name 
+- One you calm subDomain, you can call ```owner``` function on ENSRegistry contrct with the NameHash of the domain and  it will give you the address of the owner. You can also call ```getLabel``` function on the AMACLClient contract with the address and you will get the domain name 
 
 
 
-TODO:
-- [ ] NameWrapper contracts for subdomains and reverse records on ENS. ENS team hasnt confirmed yet if their Namewrapper contracts are audited and production ready.
-- [ ] Handling fork chains requests failing on the chainlink.
-- [ ] Setting up ReverseRegistrar.
-- [ ] Setting owner of the Logic contract through UpgradeAndCall call from TranparentUpgradeableProxy.
-- [ ] Multiple servers for handing chainlink requests from the operator.sol.
-- [done] Reduce the fee required by Operator.sol to fulfil requests, Right now it stands at 1 Link which is too high. 
-- [ ]Deployment on Avalanche and Arbitrum to check the cost fo transactions.
-- [done ] Integration of AMAClient.sol with Posts.sol contracts to ease address/name resolution.
+### TODO:
+- [] NameWrapper contracts for subdomains and reverse records on ENS. ENS team hasnt confirmed yet if their Namewrapper contracts are audited and production ready.
+- [] Handling fork chains requests failing on the chainlink.
+- [] Setting up ReverseRegistrar.
+- [] Setting owner of the Logic contract through UpgradeAndCall call from TranparentUpgradeableProxy.
+- [] Multiple servers for handing chainlink requests from the operator.sol.
+- [Done] Reduce the fee required by Operator.sol to fulfil requests, Right now it stands at 1 Link which is too high. 
+- [Done]Deployment on Avalanche and Arbitrum to check the cost fo transactions.
+- [Done] Integration of AMAClient.sol with Posts.sol contracts to ease address/name resolution.
 - [] Test with official PublicKeyResolver deployed by the ENS team.
+
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+   [External Adapter request]: <https://docs.chain.link/docs/fulfilling-requests/>
+   [Chainlink Contracts ]: <https://docs.chain.link/docs/link-token-contracts/>
