@@ -9,7 +9,7 @@ import "./utils/Initializable.sol";
 import "./IAmaENSClient.sol";
 import "./chainlink/v0.7/interfaces/LinkTokenInterface.sol";
 
-contract AmaClient is Initializable, AmaCLClientStorage, ChainlinkClient {
+contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
     using Chainlink for Chainlink.Request;
     event RequestFulfilled(
         address indexed _address,

@@ -515,7 +515,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"AmaCLClient.sol": "AmaClient"
+			"AmaCLClient.sol": "AmaCLClient"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -530,11 +530,11 @@
 	},
 	"sources": {
 		"AmaCLClient.sol": {
-			"keccak256": "0x7e78da286f71eb9695044ebcbfe97261bdc6f409e9d6cfb768670c3d1399ffe1",
+			"keccak256": "0xc6fc2a82f05c272d2f0ce17baea259b0b81368fceb3aec83bfb9906125b2fe88",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a5b803e7b00e9aacbfe22bce5f3c134240d94fead940b9560406c07723da6274",
-				"dweb:/ipfs/QmYpm2b3wWur7j43gLQW3Xr9JrDVNRpGsAvRUhGNWT8xdS"
+				"bzz-raw://b156c4ef1c44ebbee9327868005eb72e7a426367de5f3a58a8273a358ec50de2",
+				"dweb:/ipfs/QmeEKD3B91mYJ9yVoxcMJajFWHd3ryGLs2qyHNxEJUnVLg"
 			]
 		},
 		"AmaCLClientStorage.sol": {

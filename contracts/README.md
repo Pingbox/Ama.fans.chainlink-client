@@ -134,20 +134,43 @@ reverse record for the address.
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/
 
 
-Addresses (Rinkyby):
-ENSRegistry: 0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e (No interaction is required from FrontEnd)
-PublicKeyResolver: 0x3dec55268f6F154CF47C688A32DA1ef661CE1Bd3 (Must be used to get aproval from user to manage his subdomain)
-ProxyAdmin: 0xADb259cC59666257e0e144D00eBaF5f8ae3E6d3A (No interaction is required from frontend)
-AMAclient: 0x68957F581C0ab11f2f1e4Fbb5Cf0d5c75ac93480
-AmaClientProxy: 0x92Fc84e38ce9Cb55e58Bdc53b1f37b4F50653A81 (Must be used for twitterVerification, claimSubdomain)
-
-
-
-FujiTestnet Deployment:
+##FujiTestnet Deployment:
 Operator.sol 0xf6bB26A724655553A5046b62D41e29bB29DA1AeE
 ProxyAdmin: 0x291bbf7F5712ea859C0D8851913e32a47D95FDB9
-AMAClient: 0xD619E68A3b7622024929903E1Cd6Cd9EF269ceE7
-TransparentUpgradeableProxy: 0x4173d1D66CC6aD2735945e7763754e003846E20F
+AMAClClient: 0xD619E68A3b7622024929903E1Cd6Cd9EF269ceE7 //Dont use this contract directly, Use TransparentUpgradeableProxy insted as a proxy for this contract.
+ENSRegistry: 0x970e7636f5e3A09a41057D6bC9E54a20CAfbf4a3
+PublicKeyResolver: 0xe30C409CF769912f9359625c6B33bc9959d0E95f
+TransparentUpgradeableProxy: 0x4173d1D66CC6aD2735945e7763754e003846E20F //interact with this contract with ABI of AMAClClient contract.
+
+
+
+
+## Functions of Interest:
+Step1: Post a tweet with your address and #amafans tag on your twitter. 
+Step2: Call function ```requestVerification``` with the same address that you posted in twitter.
+Step3: Keep calling getEncodedData function, It will give you bytes if the request has been completed otheriwese it will raise rthis error 
+```executin reverted: Request is already pending"
+Step4: TO cross cheeck, you cann call function ```userDetailsTwitter`` function and you will get the details of the useer which 
+have been fetched from twitter.
+Step5: It is time to call claimSubDomain function wih\th the same address. In the backend, It register the records on the 
+ENS contract deployed on the Avax chain and alos creates a domain with the twitter details.
+FOr example, My twitter username is graphicaldot which doesnt have any special chars so on the ENS contracts, following records will 
+be created. graphicaldot.amafans will be associated with my address .
+
+Please note: These records will exist on the ENS registry not on AMAEnsClient (which is just being used to interact with ENS registry).
+Also, the corresponding text records are present in the PublicResolver contract. The three keys which will be created for each subdomains 
+are : "name" = Name of the user on twitter
+"com.twitter" = username of the user on twitter.
+"twitterID" = twitterID of the user 
+"avatar" = Profile image of the user on twitter
+"isTwitterverified" =  If the user is verified by twitter or not.
+
+On ENS registry and public resolver, The records are not represented by "graphicaldot.amafans" but by the nodeHash.
+You can get the NameHash aka nodehash , ex Nodehahs of graphicaldot.amafans is 0x5e118688372471fd6a83414a4118bbe5b310119eb1eb60e2fc159f3f65e0597f.
+
+One you calim subDomain, you can call ```owner``` fuction on ENSRegistry contrct with the NameHash of the domain and 
+it will give you the address of the owner.
+You can also call ```getLabel ``` function on the AMACLClient contract with the address and you will get the domain name 
 
 
 
