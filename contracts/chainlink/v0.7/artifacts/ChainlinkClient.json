@@ -1,0 +1,116 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"görli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "60806040526001600455348015601457600080fd5b50603f8060226000396000f3fe6080604052600080fdfea26469706673582212201a22ecec0fd96cb5e3a035670c7faa44b8f5860195f6c6bd0141561cef1018e664736f6c63430007060033",
+			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x1 PUSH1 0x4 SSTORE CALLVALUE DUP1 ISZERO PUSH1 0x14 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x3F DUP1 PUSH1 0x22 PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 BYTE 0x22 0xEC 0xEC 0xF 0xD9 PUSH13 0xB5E3A035670C7FAA44B8F58601 SWAP6 0xF6 0xC6 0xBD ADD COINBASE JUMP SHR 0xEF LT XOR 0xE6 PUSH5 0x736F6C6343 STOP SMOD MOD STOP CALLER ",
+			"sourceMap": "498:10590:1:-:0;;;1221:1;1190:32;;498:10590;;;;;;;;;;;;;;;;"
+		},
+		"deployedBytecode": {
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "6080604052600080fdfea26469706673582212201a22ecec0fd96cb5e3a035670c7faa44b8f5860195f6c6bd0141561cef1018e664736f6c63430007060033",
+			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 BYTE 0x22 0xEC 0xEC 0xF 0xD9 PUSH13 0xB5E3A035670C7FAA44B8F58601 SWAP6 0xF6 0xC6 0xBD ADD COINBASE JUMP SHR 0xEF LT XOR 0xE6 PUSH5 0x736F6C6343 STOP SMOD MOD STOP CALLER ",
+			"sourceMap": "498:10590:1:-:0;;;;;"
+		},
+		"gasEstimates": {
+			"creation": {
+				"codeDepositCost": "12600",
+				"executionCost": "20072",
+				"totalCost": "32672"
+			},
+			"internal": {
+				"addChainlinkExternalRequest(address,bytes32)": "infinite",
+				"buildChainlinkRequest(bytes32,address,bytes4)": "infinite",
+				"cancelChainlinkRequest(bytes32,uint256,bytes4,uint256)": "infinite",
+				"chainlinkOracleAddress()": "infinite",
+				"chainlinkTokenAddress()": "infinite",
+				"rawRequest(address,struct Chainlink.Request memory,uint256,uint256,bytes4)": "infinite",
+				"requestOracleData(struct Chainlink.Request memory,uint256)": "infinite",
+				"requestOracleDataFrom(address,struct Chainlink.Request memory,uint256)": "infinite",
+				"sendChainlinkRequest(struct Chainlink.Request memory,uint256)": "infinite",
+				"sendChainlinkRequestTo(address,struct Chainlink.Request memory,uint256)": "infinite",
+				"setChainlinkOracle(address)": "infinite",
+				"setChainlinkToken(address)": "infinite",
+				"setPublicChainlinkToken()": "infinite",
+				"updateChainlinkOracleWithENS()": "infinite",
+				"useChainlinkWithENS(address,bytes32)": "infinite",
+				"validateChainlinkCallback(bytes32)": "infinite"
+			}
+		},
+		"methodIdentifiers": {}
+	},
+	"abi": [
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "id",
+					"type": "bytes32"
+				}
+			],
+			"name": "ChainlinkCancelled",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "id",
+					"type": "bytes32"
+				}
+			],
+			"name": "ChainlinkFulfilled",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "bytes32",
+					"name": "id",
+					"type": "bytes32"
+				}
+			],
+			"name": "ChainlinkRequested",
+			"type": "event"
+		}
+	]
+}

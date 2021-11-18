@@ -1,0 +1,133 @@
+{
+	"compiler": {
+		"version": "0.7.0+commit.9e61f92b"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "Contract module which provides a basic access control mechanism, where there is an account (an owner) that can be granted exclusive access to specific functions. By default, the owner account will be the one that deploys the contract. This can later be changed with {transferOwnership}. This module is used through inheritance. It will make available the modifier `onlyOwner`, which can be applied to your functions to restrict their use to the owner.",
+			"kind": "dev",
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"utils/OwnableUpgradeable.sol": "OwnableUpgradeable"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"utils/AddressUpgradeable.sol": {
+			"keccak256": "0x059506740847d87dcbac86beba10180c26ccc431b5249395eb6a3efa6faca05b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0342976fcaa224fde8d8ff5cef4bc894cfff1eba54e7cd97d6c8a2cd2027dcbf",
+				"dweb:/ipfs/QmenKap6Ef8LDVvuJ7XHb395MwCEDgEX96iKKrrxGzdaiT"
+			]
+		},
+		"utils/ContextUpgradeable.sol": {
+			"keccak256": "0x594fab8978f3da46610601834c8d4346f7922a8e3e3f9b9172f0857f165b6dbf",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8a8cc564957903dc1c406d42c461514b5992bb60509888d5914344067588b619",
+				"dweb:/ipfs/QmRbKXuSPqBx3RSnKqEY68aKpHifYyV6L85TFYGE9qLJ3J"
+			]
+		},
+		"utils/Initializable.sol": {
+			"keccak256": "0x950e681c3daf1800811144a50f53ddfb3d74b4f774583ed9186dbcb6ff3fa28d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://69b0c5bde115c72b0e14db3e0c9fd1615eb6edbb536b31cc3bc99790db72ce35",
+				"dweb:/ipfs/QmU4Jxzh3v3R3NrbH3xjXo5CG37Rpf6Ywe8cLL6BHpi2J2"
+			]
+		},
+		"utils/OwnableUpgradeable.sol": {
+			"keccak256": "0xc2c3e0b3afbfbf88e922b213babd09dde915ab3bd045b8886e77460b192036be",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://33fda3c2654fbfd1ac47d7272dd590fe667e072f753c8c3dba24e38cd89237a2",
+				"dweb:/ipfs/QmbmxBDwEfhhPdpb4TdjX9TqUz7jrCegodSjVWqgZQtKMN"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,293 @@
+{
+	"compiler": {
+		"version": "0.8.6+commit.11564f7e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract TransparentUpgradeableProxy",
+						"name": "proxy",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "newAdmin",
+						"type": "address"
+					}
+				],
+				"name": "changeProxyAdmin",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract TransparentUpgradeableProxy",
+						"name": "proxy",
+						"type": "address"
+					}
+				],
+				"name": "getProxyAdmin",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract TransparentUpgradeableProxy",
+						"name": "proxy",
+						"type": "address"
+					}
+				],
+				"name": "getProxyImplementation",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract TransparentUpgradeableProxy",
+						"name": "proxy",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "implementation",
+						"type": "address"
+					}
+				],
+				"name": "upgrade",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract TransparentUpgradeableProxy",
+						"name": "proxy",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "implementation",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "upgradeAndCall",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "This is an auxiliary contract meant to be assigned as the admin of a {TransparentUpgradeableProxy}. For an explanation of why you would want to use this see the documentation for {TransparentUpgradeableProxy}.",
+			"kind": "dev",
+			"methods": {
+				"changeProxyAdmin(address,address)": {
+					"details": "Changes the admin of `proxy` to `newAdmin`. Requirements: - This contract must be the current admin of `proxy`."
+				},
+				"getProxyAdmin(address)": {
+					"details": "Returns the current admin of `proxy`. Requirements: - This contract must be the admin of `proxy`."
+				},
+				"getProxyImplementation(address)": {
+					"details": "Returns the current implementation of `proxy`. Requirements: - This contract must be the admin of `proxy`."
+				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"upgrade(address,address)": {
+					"details": "Upgrades `proxy` to `implementation`. See {TransparentUpgradeableProxy-upgradeTo}. Requirements: - This contract must be the admin of `proxy`."
+				},
+				"upgradeAndCall(address,address,bytes)": {
+					"details": "Upgrades `proxy` to `implementation` and calls a function on the new implementation. See {TransparentUpgradeableProxy-upgradeToAndCall}. Requirements: - This contract must be the admin of `proxy`."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"proxy/ProxyAdmin.sol": "ProxyAdmin"
+		},
+		"evmVersion": "berlin",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"access/Ownable.sol": {
+			"keccak256": "0x5c497fa29413cd0982c0230f2080057f3f79f2942ad2a85ec38331a8d70f49ce",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d69ada813cfb236994cea66aa24c2c964ee6560b7065c377cb1e2f067a03687d",
+				"dweb:/ipfs/QmbpNbhv2wP62kA54qxpugAp38PzbBVzsB9dZ5PtH7gLNo"
+			]
+		},
+		"proxy/ERC1967/ERC1967Proxy.sol": {
+			"keccak256": "0x31e9e48553bd346b7e423a37c7b7ff132993f996a6dd352dcb6f96c9faed5c5d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8febce05cda10f9bedff3271718108c0297e80e22cc462c7b3dc66703ba83292",
+				"dweb:/ipfs/QmZqxTfX7BAGVfkHWCz98PTouZ23GCjMBw2VCdU8pk8Z8x"
+			]
+		},
+		"proxy/ERC1967/ERC1967Upgrade.sol": {
+			"keccak256": "0xf846804af5d126646db3e0aadcaf245cef7f9297b381a9db756975c016d856ae",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://eac378be1e2eb05ab4af5819c2553c2e75820a0ebdfe60b6b473f210d6ece7ed",
+				"dweb:/ipfs/QmaERcqDG7bSCmBKg2R63M26NxCJbUa2xM9v1FZTZUUG6Z"
+			]
+		},
+		"proxy/ERC1967/IBeacon.sol": {
+			"keccak256": "0x69e09c6f079130e3608a163b7589a29baccdb4fc9a3b1f8b437c08e2e35395c0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d51b01c145cb8b76ae809b2688272da628f74ddc2526502fcbc5da0b2d1c138f",
+				"dweb:/ipfs/QmWHJjhBKbWWNwewrxVSgFWyLPW3PEBxkHbzy9B8r2onEM"
+			]
+		},
+		"proxy/Proxy.sol": {
+			"keccak256": "0x1b9788d2f62369d55aef39442b0a8c9b05114ff6cb0c59b4f0f4485d1648f0f2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://35d1f8588cf1c70820a1aa2249862d663db591327cc0f94efad1d615c3ec76b4",
+				"dweb:/ipfs/QmT4FW1G1unTdr7MTNHaUvDndjrM5Gj5AYcFMvkvq3HnXh"
+			]
+		},
+		"proxy/ProxyAdmin.sol": {
+			"keccak256": "0x23a253c2abe92f3b04a7c8187da45c1dfea53eb3b8defdf084f276b75a27348c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://341d0563d2e2805e42d7aabc911bff1dac6c72d88d78156a2b52847c2a248ce2",
+				"dweb:/ipfs/Qma8PK1Wg5P7orEf2W4AjdcR8q4NtDtC2tcrqQwBRpbbjA"
+			]
+		},
+		"proxy/TransparentUpgradeableProxy.sol": {
+			"keccak256": "0x66428d04d9f89a6b9a317e3e32976afddea57456b40d3e3df802eb65d569ea06",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://306d6d00ef1580990132f7367be5e0d677ddb99a0536533c98b913080a8a7f54",
+				"dweb:/ipfs/QmaUghmkJ4FRiRHLqbgKEqQyuDYnAuj7vv26C5tSFe254g"
+			]
+		},
+		"utils/Address.sol": {
+			"keccak256": "0xd217e5030771ed77e0df8d1028f05abdaba7df6991fc6e03229d8624c1999d9a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6f918396df8f3717ca4d2f978757604eb540b256a87e898e30105fab09010666",
+				"dweb:/ipfs/QmczhRz4N5D1vfWU1EGAGStDP57zNMLmqde9GBW3eFbAHR"
+			]
+		},
+		"utils/Context.sol": {
+			"keccak256": "0xba6ddba08488c0fd0249ecbf73d94db554b664e5460e05335633d38988fb1947",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8d39e2090185cd7852447d004adb908b40e2c7adc8831ee1a7d6eb6dea664ddc",
+				"dweb:/ipfs/QmQZPEkHcJ8hbEbRr8vvUrCWPs7XRBmwLXbUQc9Mmx39Lx"
+			]
+		},
+		"utils/StorageSlot.sol": {
+			"keccak256": "0x8b11be685cb1f1a574707f89190beac61ade63e30a1b98aca146b29f0e6b3e50",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6d128b68c41e2f9007bafd39531ba1f1798587ac5760ca9da0440fe7c35d2315",
+				"dweb:/ipfs/QmatXLGSAw6UM69g46qbxVbaCsCH6mEHqkanDCR2KpH9Yo"
+			]
+		}
+	},
+	"version": 1
+}

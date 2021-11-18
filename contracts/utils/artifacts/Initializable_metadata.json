@@ -1,0 +1,62 @@
+{
+	"compiler": {
+		"version": "0.7.0+commit.9e61f92b"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed behind a proxy. Since a proxied contract can't have a constructor, it's common to move constructor logic to an external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer function so it can only be called once. The {initializer} modifier provided by this contract will have this effect. TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as possible by providing the encoded function call as the `_data` argument to {UpgradeableProxy-constructor}. CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.",
+			"kind": "dev",
+			"methods": {},
+			"stateVariables": {
+				"_initialized": {
+					"details": "Indicates that the contract has been initialized."
+				},
+				"_initializing": {
+					"details": "Indicates that the contract is in the process of being initialized."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"utils/Initializable.sol": "Initializable"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"utils/AddressUpgradeable.sol": {
+			"keccak256": "0x059506740847d87dcbac86beba10180c26ccc431b5249395eb6a3efa6faca05b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0342976fcaa224fde8d8ff5cef4bc894cfff1eba54e7cd97d6c8a2cd2027dcbf",
+				"dweb:/ipfs/QmenKap6Ef8LDVvuJ7XHb395MwCEDgEX96iKKrrxGzdaiT"
+			]
+		},
+		"utils/Initializable.sol": {
+			"keccak256": "0x950e681c3daf1800811144a50f53ddfb3d74b4f774583ed9186dbcb6ff3fa28d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://69b0c5bde115c72b0e14db3e0c9fd1615eb6edbb536b31cc3bc99790db72ce35",
+				"dweb:/ipfs/QmU4Jxzh3v3R3NrbH3xjXo5CG37Rpf6Ywe8cLL6BHpi2J2"
+			]
+		}
+	},
+	"version": 1
+}
