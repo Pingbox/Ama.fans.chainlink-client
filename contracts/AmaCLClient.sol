@@ -8,8 +8,9 @@ import "./AmaCLClientStorage.sol";
 import "./utils/Initializable.sol";
 import "./IAmaENSClient.sol";
 import "./chainlink/v0.7/interfaces/LinkTokenInterface.sol";
+import "./access/AccessControl.sol";
 
-contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
+contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClientStorage {
     using Chainlink for Chainlink.Request;
     event RequestFulfilled(
         address indexed _address,
@@ -25,8 +26,15 @@ contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
         address indexed _address        
         );  
     
+    modifier onlyRole (bytes32 _role) {
+        require(hasRole(_role, msg.sender), "Role Missing");
+        _;
+    }
     
-    function initialize(address _amaENSclientAddress) external initializer{
+    function initialize(address _amaENSclientAddress, 
+                    address _owner,
+                    address _oracle,
+                    bytes32 _jobId) external initializer{
         //rinkeBy
         // setChainlinkToken(0x01BE23585060835E02B77ef475b0Cc51aA1e0709);
         // setChainlinkOracle(0x7fc02a01709718b25BF6E2F48D575Fef4682250F);
@@ -35,19 +43,37 @@ contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
         
         //Fuji Testnet        
         setChainlinkToken(0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846);
-        setChainlinkOracle(0xf6bB26A724655553A5046b62D41e29bB29DA1AeE);
-        jobId = "855ad2888a9d4ab1a575dabd631bf084";
+        setChainlinkOracle(_oracle);
+        jobId = _jobId;
         fee = 1 * 10 ** 16; // (Varies by network and job)
+        expiration = block.timestamp + 15 minutes;
+
         // ensContract = ENS(_ensAddress);
         amaENSclientContract = IAmaENSClient(_amaENSclientAddress);
-        owner = msg.sender;
-    }
+        super._setupRole(DEFAULT_ADMIN_ROLE, _owner);
+        super._setupRole(GOVERNANCE_ROLE, _owner);
+        super._setRoleAdmin(GOVERNANCE_ROLE, DEFAULT_ADMIN_ROLE);    
+        }
   
-    function setAMAEnsClient(address _address) external {
-        require(msg.sender == owner, "Only Owner");
+
+
+    function setAMAEnsClient(address _address) 
+                external  
+                onlyRole(GOVERNANCE_ROLE){
         amaENSclientContract = IAmaENSClient(_address);
     }
-  
+    
+    function setJobId(bytes32 _jobId) 
+        external 
+        onlyRole(GOVERNANCE_ROLE) {
+            jobId = _jobId;
+        }
+    
+    function setOracle(address _address) 
+        external 
+        onlyRole(GOVERNANCE_ROLE) {
+            setChainlinkOracle(_address);
+        }
   
     modifier ethAddressVerified(){
         require(!results[msg.sender].verifiedOnChain, "Eth address has already been verified");
@@ -88,13 +114,13 @@ contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
         req.add("path", "result");
 
         // req.add("copyPath", "RAW.ETH.USD.LASTMARKET");
+        // bytes32  _reqID =  requestOracleData(req, fee);
         bytes32  _reqID =  requestOracleData(req, fee);
 
     	results[msg.sender].reqID = _reqID;
     	results[msg.sender].twitterUsername = _twitterUsername;
 
     	addressRequestIDs[_reqID] = msg.sender;
-    	expiration = block.timestamp + 5 minutes;
 
     	return _reqID;
     }
@@ -273,7 +299,7 @@ contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
         bytes32 _requestId = results[_address].reqID;
         _verificationStarted(_requestId);
         if (isPending(_requestId) == true) {
-            return results[_address].label; 
+            return results[_address].label ; 
         }
         return "";
 
@@ -297,13 +323,20 @@ contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
         return;
     }
     
-    function withdrawLink() public  {
+    function withdrawLink(address _address) 
+            public 
+            onlyRole(GOVERNANCE_ROLE) {
         LinkTokenInterface _link = LinkTokenInterface(chainlinkTokenAddress());
-        require(_link.transfer(owner, _link.balanceOf(address(this))), "Unable to transfer");
+        require(_link.transfer(_address, _link.balanceOf(address(this))), "Unable to transfer");
     }
     
-    function balance() public view returns (uint256){
-        require(msg.sender == owner, "Only Owner");
+
+
+    function balance() 
+        public 
+        view  
+        onlyRole(GOVERNANCE_ROLE) 
+        returns (uint256){
         LinkTokenInterface _link = LinkTokenInterface(chainlinkTokenAddress());
         return  _link.balanceOf(address(this));
     }
@@ -312,13 +345,10 @@ contract AmaCLClient is Initializable, AmaCLClientStorage, ChainlinkClient {
     //the owner of this contract but then again if in case of upgrade, you will have to use the 
     // upgrade and call fuunction. The AMAStorage should have an owner varibale which must be set through 
     // a function while deploying the proxy.
-    // function deleteVerification(string memory _ethaddress) external onlyOwner  {
-    //     bytes32 _ethAddressHash = keccakHash(_ethaddress);
+    function deleteVerification(address _ethaddress) external onlyRole(GOVERNANCE_ROLE)  {
 
-    //     bytes32 _requestId = results[_ethAddressHash].reqID;
-    //     _verificationStarted(_requestId);
-    //     delete results[_ethAddressHash];
-    // }
+        delete results[_ethaddress];
+    }
     
 
 }

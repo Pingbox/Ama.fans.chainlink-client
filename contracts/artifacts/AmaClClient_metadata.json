@@ -96,8 +96,109 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "previousAdminRole",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "newAdminRole",
+						"type": "bytes32"
+					}
+				],
+				"name": "RoleAdminChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "RoleGranted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "RoleRevoked",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "DEFAULT_ADMIN_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "EMPTY_BYTES32",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "GOVERNANCE_ROLE",
 				"outputs": [
 					{
 						"internalType": "bytes32",
@@ -176,6 +277,19 @@
 					}
 				],
 				"name": "claimSubDomain",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_ethaddress",
+						"type": "address"
+					}
+				],
+				"name": "deleteVerification",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -278,9 +392,128 @@
 			{
 				"inputs": [
 					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					}
+				],
+				"name": "getRoleAdmin",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getRoleMember",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					}
+				],
+				"name": "getRoleMemberCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "grantRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "hasRole",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "_amaENSclientAddress",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_oracle",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "_jobId",
+						"type": "bytes32"
 					}
 				],
 				"name": "initialize",
@@ -353,16 +586,21 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "account",
 						"type": "address"
 					}
 				],
-				"stateMutability": "view",
+				"name": "renounceRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -426,12 +664,56 @@
 			{
 				"inputs": [
 					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "revokeRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "_address",
 						"type": "address"
 					}
 				],
 				"name": "setAMAEnsClient",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_jobId",
+						"type": "bytes32"
+					}
+				],
+				"name": "setJobId",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "setOracle",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -495,7 +777,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
 				"name": "withdrawLink",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -504,7 +792,29 @@
 		],
 		"devdoc": {
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"getRoleAdmin(bytes32)": {
+					"details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
+				},
+				"getRoleMember(bytes32,uint256)": {
+					"details": "Returns one of the accounts that have `role`. `index` must be a value between 0 and {getRoleMemberCount}, non-inclusive. Role bearers are not sorted in any particular way, and their ordering may change at any point. WARNING: When using {getRoleMember} and {getRoleMemberCount}, make sure you perform all queries on the same block. See the following https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post] for more information."
+				},
+				"getRoleMemberCount(bytes32)": {
+					"details": "Returns the number of accounts that have `role`. Can be used together with {getRoleMember} to enumerate all bearers of a role."
+				},
+				"grantRole(bytes32,address)": {
+					"details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role."
+				},
+				"hasRole(bytes32,address)": {
+					"details": "Returns `true` if `account` has been granted `role`."
+				},
+				"renounceRole(bytes32,address)": {
+					"details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `account`."
+				},
+				"revokeRole(bytes32,address)": {
+					"details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role."
+				}
+			},
 			"version": 1
 		},
 		"userdoc": {
@@ -530,19 +840,19 @@
 	},
 	"sources": {
 		"AmaCLClient.sol": {
-			"keccak256": "0xc6fc2a82f05c272d2f0ce17baea259b0b81368fceb3aec83bfb9906125b2fe88",
+			"keccak256": "0xf1279fc55d6f3a3a380e5fa174a5c338ff97bb9602bb24f846dbfb81cd5f7994",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b156c4ef1c44ebbee9327868005eb72e7a426367de5f3a58a8273a358ec50de2",
-				"dweb:/ipfs/QmeEKD3B91mYJ9yVoxcMJajFWHd3ryGLs2qyHNxEJUnVLg"
+				"bzz-raw://bdcab0ba51d11a145dc30841194f86c5519643ec7664822ad9045497c45a87d4",
+				"dweb:/ipfs/QmTZKTJ85fMguvfhR2eFhxJo8mv8uGdT5wUeKoGyFEofzL"
 			]
 		},
 		"AmaCLClientStorage.sol": {
-			"keccak256": "0x1ac56fd855c6f2bf1293fa9dabb2ca530cbeac537869d23b75777afcc9d6c8ba",
+			"keccak256": "0xbf71279e943273059cdfec753ae1914380fc4af6e3ec9dc652ce134522daf92a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fbd3ef7fffe0856b26edf33726acdd244ccb021fc1c941813f3dd67f7cf7eac9",
-				"dweb:/ipfs/QmWwhpQaXc78CC9Z4jUQK784iRC5gFnNRYKYEyzS4ngCj5"
+				"bzz-raw://949463f8a0c3a29f9b307a4c8736219c72c26f72560573c0eb2511020181febd",
+				"dweb:/ipfs/QmSsQ2JkrxqPbsv1D9S53gBagsFLY3wotiz3E1W8jLsVFb"
 			]
 		},
 		"ENSInterface.sol": {
@@ -559,6 +869,38 @@
 			"urls": [
 				"bzz-raw://afe0398ba9992edc57faabf02685a95c5150f29acb405aa2a85b5e6f0579c7d0",
 				"dweb:/ipfs/QmQopJgqeofExuzCKA7ExQS1BzppCy3LcM56snNg2r3Ai7"
+			]
+		},
+		"access/AccessControl.sol": {
+			"keccak256": "0x0bf67f0847f39a0dfb909b4b68d8273f67739f68e5c44c04418156f6d8a11ea1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://16fafb7eb495c86faa5485de08b70f9abdd0c8f9f214b8704a0dfe9f748a33d6",
+				"dweb:/ipfs/QmNLhVsGvXq23R6X3y5mjLuuwCNKpg6qfVvFZxw4W8mDkh"
+			]
+		},
+		"access/Address.sol": {
+			"keccak256": "0xf6ef080fad8534f258b526768063c666e701b135ec3bde9bdffc77254e399515",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://043eada9acabd207d4aaa1706ca581c514ba75e8ec9183a805ff8d1f25ccd445",
+				"dweb:/ipfs/QmU6fLUSyR7YSMVtcGtj5epEvpxDBERGMS5L92WG7JKQVH"
+			]
+		},
+		"access/Context.sol": {
+			"keccak256": "0xd3e88da8695a1d63936f7bbf3b3441056c44d167e679a80f9a1b5ffafb11fad9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://587786c556944a0a561b5f5ab16716263b42ca8dd6cc1102b75f4c4d1a802325",
+				"dweb:/ipfs/QmU9Y13bBrVy2uE4TiHfPSTFQXV2BeUnxrMo135zRy7wJT"
+			]
+		},
+		"access/EnumerableSet.sol": {
+			"keccak256": "0x9b5fc5c4cc4328e77b03040210a5c5e1d962e4c27c39ba158304bf0da7e19c7e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://55e32c9a45505869c0ec0c8dd766f094f83f76cae187faeaa21e3974bf108ead",
+				"dweb:/ipfs/QmdavSe16js7adAHekEaaT1gvxYGtEy4tNsH7NNnwz2dKg"
 			]
 		},
 		"chainlink/v0.7/Chainlink.sol": {

@@ -23,7 +23,7 @@ abstract contract ReverseRegistrar {
 contract AmaCLClientStorage{
     // using Chainlink for Chainlink.Request;
     bytes32 constant public EMPTY_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
-
+    bytes32 public constant GOVERNANCE_ROLE =  keccak256("GOVERNANCE");
 
 
     //.amafans
@@ -36,6 +36,13 @@ contract AmaCLClientStorage{
         bool verifiedOnChain; //if the address has actually posted the tweet on twitter account and has been verified
         bytes data; //[proposedSubDomain,nameOnTwitter,ethAddress,isTwitterVerified,isOnChainVerified]
     }
+
+
+    IAmaENSClient public amaENSclientContract;
+    address public oracle;
+    bytes32 public jobId;
+    uint256 public fee;
+    uint256 public expiration;
     mapping(address => Response) public results; //eth address hash mapped to responses
     mapping(bytes32 => address ) public addressRequestIDs;
 
@@ -49,11 +56,4 @@ contract AmaCLClientStorage{
     //This provides a quick way to decide if the TwitterUsername is already associated with an 
     //Ethereum address and if yes, Then by whom.
     mapping(bytes32 => address) public twitterUsernameToAddress; 
-    IAmaENSClient public amaENSclientContract;
-    address public oracle;
-    bytes32 public jobId;
-    uint256 public fee;
-    address public owner;
-    uint256 public expiration;
-
 }

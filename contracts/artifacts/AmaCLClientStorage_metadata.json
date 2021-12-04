@@ -19,6 +19,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "GOVERNANCE_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "bytes32",
@@ -122,19 +135,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -221,11 +221,11 @@
 	},
 	"sources": {
 		"AmaCLClientStorage.sol": {
-			"keccak256": "0x1ac56fd855c6f2bf1293fa9dabb2ca530cbeac537869d23b75777afcc9d6c8ba",
+			"keccak256": "0xbf71279e943273059cdfec753ae1914380fc4af6e3ec9dc652ce134522daf92a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fbd3ef7fffe0856b26edf33726acdd244ccb021fc1c941813f3dd67f7cf7eac9",
-				"dweb:/ipfs/QmWwhpQaXc78CC9Z4jUQK784iRC5gFnNRYKYEyzS4ngCj5"
+				"bzz-raw://949463f8a0c3a29f9b307a4c8736219c72c26f72560573c0eb2511020181febd",
+				"dweb:/ipfs/QmSsQ2JkrxqPbsv1D9S53gBagsFLY3wotiz3E1W8jLsVFb"
 			]
 		},
 		"ENSInterface.sol": {

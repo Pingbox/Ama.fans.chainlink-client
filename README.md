@@ -4,54 +4,84 @@
 - [External Adapter request]
 - [Chainlink Contracts ]
 
-
 ##### Job spec for twitter verification
 
 ```
+type                             = "directrequest"
+schemaVersion          = 1
+name                           = "ConversionToV2"
+contractAddress        = "0xf6bB26A724655553A5046b62D41e29bB29DA1AeE"
+externalJobID            = "855ad288-8a9d-4ab1-a575-dabd631bf084"
+observationSource   = """
+
+          decode_log   [type="ethabidecodelog"
+                 abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address 
+                  callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+           decode_cbor  [type="cborparse" data="$(decode_log.data)"]
+           send_to_bridge [type="bridge" 
+                    name="twitter-username-verification" 
+                    requestData="{ \\"data\\": { \\"twitter_username\\": $(decode_cbor.twitter_username),  
+                     \\"address_bytes\\":  $(decode_cbor.address_bytes)}}"]
+          parse       [type="jsonparse" data="$(send_to_bridge)" path="result"]
+          encode_data [type="ethabiencode"
+                abi="fulfillBytes(bytes32 requestID, bytes data)",
+                data="{\\"requestID\\": $(decode_log.requestId),  \\"bytesData\\": $(parse)}"
+                ]
+         encode_tx   [type="ethabiencode"
+                 abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
+                 data="{\\"requestId\\": $(decode_log.requestId), 
+                        \\"payment\\": $(decode_log.payment), 
+                        \\"callbackAddress\\": $(decode_log.callbackAddr), 
+                        \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), 
+                        \\"expiration\\": $(decode_log.cancelExpiration), 
+                        \\"data\\": $(encode_data)}"
+                 ]
+        submit_tx [type="ethtx" to="0xf6bb26a724655553a5046b62d41e29bb29da1aee" data="$(encode_tx)"]
+        decode_log -> decode_cbor -> send_to_bridge -> parse -> encode_data -> encode_tx -> submit_tx
+"""
 
 {
- "initiators": [
-   {
-     "type": "runlog",
-     "params": {
-       "address": "0x7fc02a01709718b25BF6E2F48D575Fef4682250F"
-     }
-   }
- ],
- "tasks": [
-   {
-     "type":  "twitter-username-verification",
-     "confirmations": null,
-     "params": {
-     }
-   },
-   {
-     "type": "copy",
-     "confirmations": null,
-     "params": {
-}
-   },
-
-   {
+  "name": "AA",
+  "initiators": [
+    {
+      "id": 5,
+      "jobSpecId": "162a8d42-5a5f-4a17-bdae-6d2858039abf",
+      "type": "runlog",
+      "params": {
+        "address": "0xf6bb26a724655553a5046b62d41e29bb29da1aee"
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
+      "type": "twitter-username-verification"
+    },
+    {
+      "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
+      "type": "copy"
+    },
+    {
+      "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
       "type": "jsonparse"
     },
     {
+      "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
       "type": "resultcollect"
     },
-
-   {
-     "type": "ethtx",
-     "confirmations": null,
-     "params": {
+    {
+      "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
+      "type": "ethtx",
+      "params": {
         "abiEncoding": [
           "bytes32",
           "bytes"
         ]
       }
-   }
- ],
- "startAt": null,
- "endAt": null
+    }
+  ]
 }
 
 ```
@@ -81,7 +111,7 @@ AmaClientProxy can take actions on behalf of the user on PublicKeyResolver.
 
 
 
-If you are upgrading logic on  AmaClient.sol
+If you are upgrading logic on AmaClient.sol
 1. Load the ProxyAdmin contract from ProxyAdmin address mentioned above.
 2. Deploy your new AmaClient.sol, call its address as UpgradeAMAClient.
 3. Make sure you are logged in with the owner of ProxyAdmin and call upgrade wiht proxy=AmaClientProxy and implementation=UpgradeAMAClient.
@@ -102,6 +132,13 @@ reverse record for the address.
 
 
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/
+Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
+#### New contracts (Fuji TestNet Deployments):
+- ###### _Operator.sol_ :  0xe5E07b5240e628BA84A9B650c2372912056785F2
+- ###### _LinkTokenAddress : 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
+- ###### _AMAClClient_: 0xca49296761467142eb3e9B1c88AB486e20d7432B //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
+- ##### _ProxyAdmin_: 0xf256aeA5511F97A7a2A2299C1B4a3ea7815e3415
+- ##### _AMAClientProxy_ : 0xe4067337A6d3D7c2608949ab78094C0a249057Fb
 
 
 ##### FujiTestnet Deployment:
@@ -131,7 +168,7 @@ are :
 
 - On ENS registry and public resolver, The records are not represented by "graphicaldot.amafans" but by the nodeHash. You can get the NameHash aka nodehash , ex Nodehahs of graphicaldot.amafans is 0x5e118688372471fd6a83414a4118bbe5b310119eb1eb60e2fc159f3f65e0597f.
 
-- One you calm subDomain, you can call ```owner``` function on ENSRegistry contrct with the NameHash of the domain and  it will give you the address of the owner. You can also call ```getLabel``` function on the AMACLClient contract with the address and you will get the domain name 
+- One you call claimsubDomain, you can call ```owner``` function on ENSRegistry contrct with the NameHash of the domain and  it will give you the address of the owner. You can also call ```getLabel``` function on the AMACLClient contract with the address and you will get the domain name 
 
 
 
@@ -140,7 +177,7 @@ are :
 - [] Handling fork chains requests failing on the chainlink.
 - [] Setting up ReverseRegistrar.
 - [] Setting owner of the Logic contract through UpgradeAndCall call from TranparentUpgradeableProxy.
-- [] Multiple servers for handing chainlink requests from the operator.sol.
+- [Done] Multiple servers for handing chainlink requests from the operator.sol.
 - [Done] Reduce the fee required by Operator.sol to fulfil requests, Right now it stands at 1 Link which is too high. 
 - [Done]Deployment on Avalanche and Arbitrum to check the cost fo transactions.
 - [Done] Integration of AMAClient.sol with Posts.sol contracts to ease address/name resolution.
@@ -151,3 +188,8 @@ are :
 
    [External Adapter request]: <https://docs.chain.link/docs/fulfilling-requests/>
    [Chainlink Contracts ]: <https://docs.chain.link/docs/link-token-contracts/>
+
+
+To set the newJob id on AMACLClint.sol 
+
+"0x"+ binascii.hexlify(JOBID.encode("utf-8")).decode()

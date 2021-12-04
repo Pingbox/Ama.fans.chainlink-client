@@ -6,8 +6,6 @@ https://docs.chain.link/docs/link-token-contracts/
 
 
 
-Operator.sol deployed on RinkeBy : 0x7fc02a01709718b25BF6E2F48D575Fef4682250F
-AMATwitterClient address on etherscan is: 0x70d8f4d29ea5086Ae85B61D08849D0fC1E317860
 
 
 

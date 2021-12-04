@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.0+commit.c7dfd78e"
+		"version": "0.8.10+commit.fc410830"
 	},
 	"language": "Solidity",
 	"output": {
@@ -196,7 +196,7 @@
 		"compilationTarget": {
 			"proxy/ProxyAdmin.sol": "ProxyAdmin"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -209,19 +209,19 @@
 	},
 	"sources": {
 		"@openzeppelin/contracts/access/Ownable.sol": {
-			"keccak256": "0x6bb804a310218875e89d12c053e94a13a4607cdf7cc2052f3e52bd32a0dc50a1",
+			"keccak256": "0xa1b27b3f44ff825974e5268e8f63ad3b03add5b464880d860fbb8cae043e17f7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b2ebbbe6d0011175bd9e7268b83de3f9c2f9d8d4cbfbaef12aff977d7d727163",
-				"dweb:/ipfs/Qmd5c7Vxtis9wzkDNhxwc6A2QT5H9xn9kfjhx7qx44vpro"
+				"bzz-raw://ad0fb4425453220f15bdb8c4e009052839804bb725797b6d8c02ee2271bc3c23",
+				"dweb:/ipfs/QmPtjdMxzEifPUEUa6cKX1yfTWjaZV6QtdwMdN6bEL9FBM"
 			]
 		},
 		"@openzeppelin/contracts/utils/Context.sol": {
-			"keccak256": "0x90565a39ae45c80f0468dc96c7b20d0afc3055f344c8203a0c9258239f350b9f",
+			"keccak256": "0x7736c187e6f1358c1ea9350a2a21aa8528dec1c2f43b374a9067465a3a51f5d3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://26e8b38a7ac8e7b4463af00cf7fff1bf48ae9875765bf4f7751e100124d0bc8c",
-				"dweb:/ipfs/QmWcsmkVr24xmmjfnBQZoemFniXjj3vwT78Cz6uqZW1Hux"
+				"bzz-raw://4fd625dca17657403af518cc6c8ab5c54c58898cf6e912ca2e1b0f3194ad0405",
+				"dweb:/ipfs/QmQVv7YeeKmaS11bg7YDTeeGDk6i7sV8LMMfohaLM4SiRu"
 			]
 		},
 		"proxy/ERC1967/ERC1967Proxy.sol": {
