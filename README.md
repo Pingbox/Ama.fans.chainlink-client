@@ -136,9 +136,9 @@ Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
 #### New contracts (Fuji TestNet Deployments):
 - ###### _Operator.sol_ :  0xe5E07b5240e628BA84A9B650c2372912056785F2
 - ###### _LinkTokenAddress : 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
-- ###### _AMAClClient_: 0xca49296761467142eb3e9B1c88AB486e20d7432B //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
-- ##### _ProxyAdmin_: 0xf256aeA5511F97A7a2A2299C1B4a3ea7815e3415
-- ##### _AMAClientProxy_ : 0xe4067337A6d3D7c2608949ab78094C0a249057Fb
+- ###### _AMAClClient_: 0x26E8369F26B7c40ADB36BF84d2c497C7D1839Fa2 //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
+- ##### _ProxyAdmin_: 0x7Ef3d91F0A79697DfD8Daa26D302003fcE0D5e64
+- ##### _AMAClientProxy_ : 0xf7b954Bbbe16A39E251cFFeE8a4461cF0ac5Af6f
 
 
 ##### FujiTestnet Deployment:
