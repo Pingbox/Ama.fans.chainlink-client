@@ -840,11 +840,11 @@
 	},
 	"sources": {
 		"AmaCLClient.sol": {
-			"keccak256": "0x7705f24a8b05a81a163c834e6df0032c92cbcd3a63360917bbecd1b66c7c271a",
+			"keccak256": "0x6d8193ea070cb0ed1b01c1e2a0b61122fc964ee0e6c1123c749e4d61c08a9430",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e59a285c7f63368721055e31321b87d25ebeee8a7666918b84b3a59397168ab7",
-				"dweb:/ipfs/QmfTALKGsKuxqAPEWSmKMYoE4a72vLgDtBKXZwXxgdMAzK"
+				"bzz-raw://f74010d91c6a8ed9d267aa544f582ba6993af4f2bc75ce69541ff6b2e314ff26",
+				"dweb:/ipfs/Qmd7aJyByXskinYECaPsBXWGxDWFwyfC4aaSWE5n9HXTYw"
 			]
 		},
 		"AmaCLClientStorage.sol": {

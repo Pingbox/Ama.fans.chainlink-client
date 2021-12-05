@@ -139,6 +139,7 @@ reverse record for the address.
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/
 Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
 ##### New contracts (Fuji TestNet Deployments):
+- New Implementation AMACLClient address with bug solved in claimCustomSubDomain function: 0xcd46bAEC69BEB8F125274A18a5Cc88Fa14Ec4757
 - New Implementation AMACLClient address with claimCustomSubDomain function : 0xa10AEE20Ab6399C13aC9d9e27f2D14d9C6142CAA
 
 - ###### _Operator.sol_ :  0xe5E07b5240e628BA84A9B650c2372912056785F2

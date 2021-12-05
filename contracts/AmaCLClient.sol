@@ -198,7 +198,8 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
         (,string memory nameOnTwitter, string memory profileImage, string memory twitterID, bool isTwitterVerified) = 
         decode_data(_response.data);
 
-        bytes memory _new = abi.encodePacked(_differentLabel,nameOnTwitter,profileImage,twitterID,isTwitterVerified);
+
+        bytes memory _new = abi.encode(_differentLabel,nameOnTwitter,profileImage,twitterID,isTwitterVerified);
         (bytes32 nodehash, ) = _registerNode(msg.sender, _new, _response.twitterUsername);
 
 
