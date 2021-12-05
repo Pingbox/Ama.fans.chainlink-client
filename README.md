@@ -139,12 +139,16 @@ reverse record for the address.
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/
 Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
 ##### New contracts (Fuji TestNet Deployments):
+- New Implementation AMACLClient address with claimCustomSubDomain function : 0xa10AEE20Ab6399C13aC9d9e27f2D14d9C6142CAA
+
 - ###### _Operator.sol_ :  0xe5E07b5240e628BA84A9B650c2372912056785F2
 - ###### _LinkTokenAddress_ : 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
 - ###### _AMACLClient_: 0x26E8369F26B7c40ADB36BF84d2c497C7D1839Fa2 //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
 - ###### _ProxyAdmin_: 0x7Ef3d91F0A79697DfD8Daa26D302003fcE0D5e64
 - ###### _AMAClientProxy_ : 0xf7b954Bbbe16A39E251cFFeE8a4461cF0ac5Af6f
 - ###### _AMAENSClient_ : 0x373f65d55B7E4D861d9f7bfC465Ae67A2d491565
+
+
 
 ##### FujiTestnet Deployment:
 - ###### _Operator.sol_ :  0xf6bB26A724655553A5046b62D41e29bB29DA1AeE

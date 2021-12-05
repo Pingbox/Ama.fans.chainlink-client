@@ -262,13 +262,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "claimSubDomain",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -276,6 +269,13 @@
 						"type": "string"
 					}
 				],
+				"name": "claimCustomSubDomain",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "claimSubDomain",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -840,11 +840,11 @@
 	},
 	"sources": {
 		"AmaCLClient.sol": {
-			"keccak256": "0xf1279fc55d6f3a3a380e5fa174a5c338ff97bb9602bb24f846dbfb81cd5f7994",
+			"keccak256": "0x7705f24a8b05a81a163c834e6df0032c92cbcd3a63360917bbecd1b66c7c271a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bdcab0ba51d11a145dc30841194f86c5519643ec7664822ad9045497c45a87d4",
-				"dweb:/ipfs/QmTZKTJ85fMguvfhR2eFhxJo8mv8uGdT5wUeKoGyFEofzL"
+				"bzz-raw://e59a285c7f63368721055e31321b87d25ebeee8a7666918b84b3a59397168ab7",
+				"dweb:/ipfs/QmfTALKGsKuxqAPEWSmKMYoE4a72vLgDtBKXZwXxgdMAzK"
 			]
 		},
 		"AmaCLClientStorage.sol": {

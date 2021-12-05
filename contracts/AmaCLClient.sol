@@ -185,7 +185,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
 
     }
     
-    function claimSubDomain( 
+    function claimCustomSubDomain( 
                     string calldata _differentLabel)
                     external  {
 
