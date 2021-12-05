@@ -144,7 +144,7 @@ Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
 - ###### _AMACLClient_: 0x26E8369F26B7c40ADB36BF84d2c497C7D1839Fa2 //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
 - ###### _ProxyAdmin_: 0x7Ef3d91F0A79697DfD8Daa26D302003fcE0D5e64
 - ###### _AMAClientProxy_ : 0xf7b954Bbbe16A39E251cFFeE8a4461cF0ac5Af6f
-
+- ###### _AMAENSClient_ : 0x373f65d55B7E4D861d9f7bfC465Ae67A2d491565
 
 ##### FujiTestnet Deployment:
 - ###### _Operator.sol_ :  0xf6bB26A724655553A5046b62D41e29bB29DA1AeE
