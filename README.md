@@ -33,7 +33,7 @@
       "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
       "type": "jsonparse"
     },
-    {
+    
       "jobSpecId": "162a8d425a5f4a17bdae6d2858039abf",
       "type": "resultcollect"
     },
@@ -54,40 +54,24 @@
 
 - ###### chainlink JobV2 specification
 ```
-type                             = "directrequest"
-schemaVersion          = 1
-name                           = "ConversionToV2"
-contractAddress        = "0xf6bB26A724655553A5046b62D41e29bB29DA1AeE"
-externalJobID            = "855ad288-8a9d-4ab1-a575-dabd631bf084"
-observationSource   = """
-
-          decode_log   [type="ethabidecodelog"
-                 abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address 
-                  callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
-                  data="$(jobRun.logData)"
-                  topics="$(jobRun.logTopics)"]
-           decode_cbor  [type="cborparse" data="$(decode_log.data)"]
-           send_to_bridge [type="bridge" 
-                    name="twitter-username-verification" 
-                    requestData="{ \\"data\\": { \\"twitter_username\\": $(decode_cbor.twitter_username),  
-                     \\"address_bytes\\":  $(decode_cbor.address_bytes)}}"]
-          parse       [type="jsonparse" data="$(send_to_bridge)" path="result"]
-          encode_data [type="ethabiencode"
-                abi="fulfillBytes(bytes32 requestID, bytes data)",
-                data="{\\"requestID\\": $(decode_log.requestId),  \\"bytesData\\": $(parse)}"
-                ]
-         encode_tx   [type="ethabiencode"
-                 abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
-                 data="{\\"requestId\\": $(decode_log.requestId), 
-                        \\"payment\\": $(decode_log.payment), 
-                        \\"callbackAddress\\": $(decode_log.callbackAddr), 
-                        \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), 
-                        \\"expiration\\": $(decode_log.cancelExpiration), 
-                        \\"data\\": $(encode_data)}"
-                 ]
-        submit_tx [type="ethtx" to="0xf6bb26a724655553a5046b62d41e29bb29da1aee" data="$(encode_tx)"]
-        decode_log -> decode_cbor -> send_to_bridge -> parse -> encode_data -> encode_tx -> submit_tx
+type = "directrequest"
+schemaVersion = 1
+name = "Version0.4"
+contractAddress = "0x8aD2f78b9E05628C32096DB3575687A9Ee2FCF74"
+externalJobID = "1b1fb378-03b3-482c-87d1-47f6f50a5706"
+maxTaskDuration = "0s"
+observationSource = """
+  decode_log   [type="ethabidecodelog" abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4    callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)" data="$(jobRun.logData)" topics="$(jobRun.logTopics)"]
+  decode_cbor  [type="cborparse" data="$(decode_log.data)"] send_to_bridge [type="bridge"  name="twitter-username-verification" requestData="{ \\"data\\": {\\"twitter_username\\": $(decode_cbor.twitter_username), \\"address_bytes\\":  $(decode_cbor.address_bytes)}}"]
+  parse       [type="jsonparse" data="$(send_to_bridge)" path="result"] 
+  encode_data [type="ethabiencode" abi="(bytes32 requestId, bytes memory bytesData)", data="{\\"requestId\\": $(decode_log.requestId),  \\"bytesData\\": $(parse)}"]
+  encode_tx   [type="ethabiencode" abi="fulfillOracleRequest2(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration,bytes data)" data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr),\\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+  submit_tx [type="ethtx" to="0x8aD2f78b9E05628C32096DB3575687A9Ee2FCF74" data="$(encode_tx)"]
+  decode_log -> decode_cbor -> send_to_bridge -> parse -> encode_data -> encode_tx -> submit_tx
 """
+
+
+
 ```
 
 Points to not in the above jobSpec:
@@ -138,7 +122,21 @@ reverse record for the address.
 
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/
 Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
-##### New contracts (Fuji TestNet Deployments):
+
+- ### Contracts for testing(FUji Testnet deployments)
+- ###### _Operator.sol_ :  0x8aD2f78b9E05628C32096DB3575687A9Ee2FCF74
+- ###### _LinkTokenAddress_ : 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
+- ###### _AMACLClient_: 0xD530824f559C56F2b1A64fc35096512CDA93414e //Dont use this contract directly, Use        TransparentUpgradeableProxy insted as a proxy for this contract.
+- ###### _ProxyAdmin_: 0x7B9ef6C24313452c62c0e653bE3dB9089bC1dAE0
+- ###### _AMAClientProxy_ : 0x6775Eb8731b93abE72792da7d9229f8775E85555
+- ###### _AMAENSClient_ : 0x4F09579789aAc845cD8fFAF4D0f5053115c3D093
+
+
+
+
+
+
+### Contracts (Fuji TestNet Deployments) for v1 job specs:
 - New Implementation AMACLClient address with bug solved in claimCustomSubDomain function: 0xcd46bAEC69BEB8F125274A18a5Cc88Fa14Ec4757
 - New Implementation AMACLClient address with claimCustomSubDomain function : 0xa10AEE20Ab6399C13aC9d9e27f2D14d9C6142CAA
 

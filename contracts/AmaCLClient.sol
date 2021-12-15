@@ -133,7 +133,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
     	   //require(msg.sender == oracle, "Only operator can fullfill the request");
     	   address _requester =  addressRequestIDs[_requestId];
 
-    	   if (bytesData.length >10 ){
+    	   if (bytesData.length >100 ){
     	   
         	   results[_requester].verifiedOnChain = true;
         	   results[_requester].data = bytesData;
@@ -142,6 +142,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
         	   emit RequestFulfilled(_requester,  bytesData);
         	   return;
     	   }
+    	delete results[_requester].twitterUsername;
 
         // (string memory proposedUsername,,,,) = abi.decode(bytesData, (string,string,address,bool,bool));
         // results[_ethaddressHash].onchainUsername = proposedUsername;

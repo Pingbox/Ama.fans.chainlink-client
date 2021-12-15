@@ -833,18 +833,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"AmaCLClient.sol": {
-			"keccak256": "0x6d8193ea070cb0ed1b01c1e2a0b61122fc964ee0e6c1123c749e4d61c08a9430",
+			"keccak256": "0x6a1ee6d76909feb4dbeb30891f1a5db06ee521198f02386ab0d05d675f5cffd1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f74010d91c6a8ed9d267aa544f582ba6993af4f2bc75ce69541ff6b2e314ff26",
-				"dweb:/ipfs/Qmd7aJyByXskinYECaPsBXWGxDWFwyfC4aaSWE5n9HXTYw"
+				"bzz-raw://822b3422093b6b4a7043ff34337af731be554c2d44385593e19c6264308f341d",
+				"dweb:/ipfs/QmXduzYTMVrWU8UrxG7ks9FvFpvqSBpKzAHhE4SMpMATEn"
 			]
 		},
 		"AmaCLClientStorage.sol": {
