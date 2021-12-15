@@ -126,27 +126,27 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
     }
     
     //callback function
-    function fulfillBytes(bytes32 _requestId, 
-                    bytes calldata bytesData) 
+    function fulfillBytes( bytes32 _requestId,
+                    bytes memory bytesData) 
                     public 
-                    recordChainlinkFulfillment(_requestId) {
+                {
     	   //require(msg.sender == oracle, "Only operator can fullfill the request");
-    	   address _requester =  addressRequestIDs[_requestId];
-
-    	   if (bytesData.length >10 ){
+    	    address _requester =  addressRequestIDs[_requestId];
+        //    (, , , , , address requester) = decode_data(bytesData);
+    	//    if (bytesData.length >10 ){
     	   
         	   results[_requester].verifiedOnChain = true;
         	   results[_requester].data = bytesData;
     
-        	   delete addressRequestIDs[_requestId];
+        	    delete addressRequestIDs[_requestId];
         	   emit RequestFulfilled(_requester,  bytesData);
         	   return;
-    	   }
+    	//    }
 
         // (string memory proposedUsername,,,,) = abi.decode(bytesData, (string,string,address,bool,bool));
         // results[_ethaddressHash].onchainUsername = proposedUsername;
 
-    	emit RequestErrored(_requester,  bytesData);
+    	// emit RequestErrored(_requester,  bytesData);
     }
     
     function cancelRequest() public {
@@ -195,7 +195,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
 
 
 
-        (,string memory nameOnTwitter, string memory profileImage, string memory twitterID, bool isTwitterVerified) = 
+        (,string memory nameOnTwitter, string memory profileImage, string memory twitterID, bool isTwitterVerified, ) = 
         decode_data(_response.data);
 
 
@@ -258,7 +258,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
             require(isPending(_response.reqID), "Please claimSubDomain");
             // (string memory proposedUsername, string memory nameOnTwitter, address ethAddress,bool isTwitterVerified , ) = abi.decode(_response.data, (string,string,address,bool,bool));
             // (,string memory nameOnTwitter, string memory twitterURL, bool isTwitterVerified, ) = abi.decode(_response.data, (string,string,string,bool,bool));
-            (,string memory nameOnTwitter, string memory profileImage, , bool isTwitterVerified) = decode_data(_response.data);
+            (,string memory nameOnTwitter, string memory profileImage, , bool isTwitterVerified,) = decode_data(_response.data);
             return (_response.twitterUsername, _response.label, nameOnTwitter, profileImage,isTwitterVerified );
     }
     
@@ -271,14 +271,15 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
         
     }
 
-    function decode_data(bytes memory _bytes) private pure returns (string memory, string memory, string memory, string memory, bool) {
+    function decode_data(bytes memory _bytes) private pure returns (string memory, string memory, string memory, string memory, bool, address) {
         (string memory username, 
         string memory name, 
         string memory profile_image,
         string memory id,
-        bool twitter_verified) = abi.decode(_bytes, (string,string,string,string,bool));
+        bool twitter_verified,
+        address _address) = abi.decode(_bytes, (string,string,string,string,bool,address));
 
-    return (username, name, profile_image, id, twitter_verified);
+    return (username, name, profile_image, id, twitter_verified, _address);
     }
     
     
@@ -310,12 +311,12 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
                             view 
                             external 
                             returns(bytes memory) {
-        bytes32 _requestId = results[msg.sender].reqID;
-        _verificationStarted(_requestId);
-        if (isPending(_requestId) == true) {
+        // bytes32 _requestId = results[msg.sender].reqID;
+        // _verificationStarted(_requestId);
+        // if (isPending(_requestId) == true) {
             return results[msg.sender].data; 
-        }
-        return "";
+        // }
+        // return "";
     }
     
     

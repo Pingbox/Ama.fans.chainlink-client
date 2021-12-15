@@ -60,35 +60,16 @@ name                           = "ConversionToV2"
 contractAddress        = "0xf6bB26A724655553A5046b62D41e29bB29DA1AeE"
 externalJobID            = "855ad288-8a9d-4ab1-a575-dabd631bf084"
 observationSource   = """
-
-          decode_log   [type="ethabidecodelog"
-                 abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address 
-                  callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
-                  data="$(jobRun.logData)"
-                  topics="$(jobRun.logTopics)"]
-           decode_cbor  [type="cborparse" data="$(decode_log.data)"]
-           send_to_bridge [type="bridge" 
-                    name="twitter-username-verification" 
-                    requestData="{ \\"data\\": { \\"twitter_username\\": $(decode_cbor.twitter_username),  
-                     \\"address_bytes\\":  $(decode_cbor.address_bytes)}}"]
-          parse       [type="jsonparse" data="$(send_to_bridge)" path="result"]
-          encode_data [type="ethabiencode"
-                abi="fulfillBytes(bytes32 requestID, bytes data)",
-                data="{\\"requestID\\": $(decode_log.requestId),  \\"bytesData\\": $(parse)}"
-                ]
-         encode_tx   [type="ethabiencode"
-                 abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
-                 data="{\\"requestId\\": $(decode_log.requestId), 
-                        \\"payment\\": $(decode_log.payment), 
-                        \\"callbackAddress\\": $(decode_log.callbackAddr), 
-                        \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), 
-                        \\"expiration\\": $(decode_log.cancelExpiration), 
-                        \\"data\\": $(encode_data)}"
-                 ]
-        submit_tx [type="ethtx" to="0xf6bb26a724655553a5046b62d41e29bb29da1aee" data="$(encode_tx)"]
-        decode_log -> decode_cbor -> send_to_bridge -> parse -> encode_data -> encode_tx -> submit_tx
+  decode_log   [type="ethabidecodelog" abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4    callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)" data="$(jobRun.logData)" topics="$(jobRun.logTopics)"]
+  decode_cbor  [type="cborparse" data="$(decode_log.data)"] send_to_bridge [type="bridge"  name="twitter-username-verification" requestData="{ \\"data\\": {\\"twitter_username\\": $(decode_cbor.twitter_username), \\"address_bytes\\":  $(decode_cbor.address_bytes)}}"]
+  parse       [type="jsonparse" data="$(send_to_bridge)" path="result"] 
+  encode_data [type="ethabiencode" abi="fulfillBytes(bytes32 requestID, bytes data)", data="{\\"requestID\\": $(decode_log.requestId),  \\"bytesData\\": $(parse)}"]
+  encode_tx   [type="ethabiencode" abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration,bytes32 data)" data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr),\\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+  submit_tx [type="ethtx" to="0xf6bb26a724655553a5046b62d41e29bb29da1aee" data="$(encode_tx)"]
+  decode_log -> decode_cbor -> send_to_bridge -> parse -> encode_data -> encode_tx -> submit_tx
 """
 ```
+
 
 Points to not in the above jobSpec:
 1. twitter-username-verification is the name of the bridge which has to be created on the node.
@@ -105,7 +86,8 @@ Points to not in the above jobSpec:
 address of this node address; this is just to allow your node to send response to the operator.sol example.
 6. Deploy PublicKeyResolver with ens contract address or use the official one (since it is not behind proxy, The operator mappig will be gone if you do redeployment)
 7. Deploy ProxyAdmin or use the existing one ( if you already have deployed for Reputation/Posts contracts).
-8. Deploy the AmaCLClient.sol 
+8. Deploy the AmaCLClient.sol, You will need a jobID as one of the param. Copy the jobid created on the chainlink node and remove the "-" and then
+use the funtion w3.toHex(text=jobid).
 9. Make sure you do steps 7 & 8 from remix only, There is some problem with hardhat scripts ( Not actually deploying these contracts).
 10. Now deploy TransparentUpgradeableProxy from scripts/deploy_amaclient.js using the address of PoxyAdmin and AmaClient. Call it AmaClientProxy.
 11. Go to you ENS app and change the controller of the concerned domain to the address of AmaClientProxy.

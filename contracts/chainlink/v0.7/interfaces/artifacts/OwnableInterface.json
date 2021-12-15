@@ -47,51 +47,27 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"fulfillOracleRequest(bytes32,uint256,address,bytes4,uint256,bytes32)": "4ab0d190",
-			"withdraw(address,uint256)": "f3fef3a3",
-			"withdrawable()": "50188301"
+			"acceptOwnership()": "79ba5097",
+			"owner()": "8da5cb5b",
+			"transferOwnership(address)": "f2fde38b"
 		}
 	},
 	"abi": [
 		{
-			"inputs": [
-				{
-					"internalType": "bytes32",
-					"name": "requestId",
-					"type": "bytes32"
-				},
-				{
-					"internalType": "uint256",
-					"name": "payment",
-					"type": "uint256"
-				},
-				{
-					"internalType": "address",
-					"name": "callbackAddress",
-					"type": "address"
-				},
-				{
-					"internalType": "bytes4",
-					"name": "callbackFunctionId",
-					"type": "bytes4"
-				},
-				{
-					"internalType": "uint256",
-					"name": "expiration",
-					"type": "uint256"
-				},
-				{
-					"internalType": "bytes32",
-					"name": "data",
-					"type": "bytes32"
-				}
-			],
-			"name": "fulfillOracleRequest",
+			"inputs": [],
+			"name": "acceptOwnership",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "owner",
 			"outputs": [
 				{
-					"internalType": "bool",
+					"internalType": "address",
 					"name": "",
-					"type": "bool"
+					"type": "address"
 				}
 			],
 			"stateMutability": "nonpayable",
@@ -103,29 +79,11 @@
 					"internalType": "address",
 					"name": "recipient",
 					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "amount",
-					"type": "uint256"
 				}
 			],
-			"name": "withdraw",
+			"name": "transferOwnership",
 			"outputs": [],
 			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "withdrawable",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
 			"type": "function"
 		}
 	]

@@ -1,0 +1,64 @@
+{
+	"compiler": {
+		"version": "0.8.10+commit.fc410830"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "requestId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "fulfillOracleRequest2",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"test_2.sol": "Test"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"test_2.sol": {
+			"keccak256": "0x106d146b42a051ffc9c2b1b3af63dd811c93ab3d64ea2a64358803d39c787560",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cf3c1971198198372259982e02fa40f532f814d40d25f42e07ca30b8a9147ce7",
+				"dweb:/ipfs/QmVB8jL6QEUfYqKL3bo9J8XqPSVVZLMgWNqPaHYetebBph"
+			]
+		}
+	},
+	"version": 1
+}

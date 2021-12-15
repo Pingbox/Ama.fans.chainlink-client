@@ -1,0 +1,79 @@
+{
+	"compiler": {
+		"version": "0.7.6+commit.7338295f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "acceptOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"chainlink/v0.7/interfaces/OwnableInterface.sol": "OwnableInterface"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"chainlink/v0.7/interfaces/OwnableInterface.sol": {
+			"keccak256": "0x5b0ba0302a06c80ff88368c02dab44a0d9b735a599ba6ff905284044f02f2932",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0163141ba0751e2f2cfd064e7bc4df7b0d586dafd4df2bff86a10d12f0c85ea2",
+				"dweb:/ipfs/QmUUxa983fJ6sRJEeBqnXsZ9XVu88KsL4fdhGTZQqVrwmb"
+			]
+		}
+	},
+	"version": 1
+}
