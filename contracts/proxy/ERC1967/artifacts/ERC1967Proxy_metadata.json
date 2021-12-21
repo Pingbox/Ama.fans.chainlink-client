@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.4+commit.c7e474f2"
+		"version": "0.8.10+commit.fc410830"
 	},
 	"language": "Solidity",
 	"output": {
@@ -25,6 +25,38 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "previousAdmin",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "newAdmin",
+						"type": "address"
+					}
+				],
+				"name": "AdminChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "beacon",
+						"type": "address"
+					}
+				],
+				"name": "BeaconUpgraded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "implementation",
@@ -44,21 +76,11 @@
 			}
 		],
 		"devdoc": {
-			"details": "This contract implements an upgradeable proxy. It is upgradeable because calls are delegated to an implementation address that can be changed. This address is stored in storage in the location specified by https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't conflict with the storage layout of the implementation behind the proxy. Upgradeability is only provided internally through {_upgradeTo}. For an externally upgradeable proxy see {TransparentUpgradeableProxy}.",
-			"events": {
-				"Upgraded(address)": {
-					"details": "Emitted when the implementation is upgraded."
-				}
-			},
+			"details": "This contract implements an upgradeable proxy. It is upgradeable because calls are delegated to an implementation address that can be changed. This address is stored in storage in the location specified by https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't conflict with the storage layout of the implementation behind the proxy.",
 			"kind": "dev",
 			"methods": {
 				"constructor": {
 					"details": "Initializes the upgradeable proxy with an initial implementation specified by `_logic`. If `_data` is nonempty, it's used as data in a delegate call to `_logic`. This will typically be an encoded function call, and allows initializating the storage of the proxy like a Solidity constructor."
-				}
-			},
-			"stateVariables": {
-				"_IMPLEMENTATION_SLOT": {
-					"details": "Storage slot with the address of the current implementation. This is the keccak-256 hash of \"eip1967.proxy.implementation\" subtracted by 1, and is validated in the constructor."
 				}
 			},
 			"version": 1
@@ -71,9 +93,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/proxy/ERC1967/ERC1967Proxy.sol": "ERC1967Proxy"
+			"proxy/ERC1967/ERC1967Proxy.sol": "ERC1967Proxy"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -85,15 +107,31 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/proxy/ERC1967/ERC1967Proxy.sol": {
-			"keccak256": "0x4d42ed4ddbe6920c3649b6685af5f0f3edb6dd230b113f20e852f83e9f95148c",
+		"proxy/ERC1967/ERC1967Proxy.sol": {
+			"keccak256": "0x31e9e48553bd346b7e423a37c7b7ff132993f996a6dd352dcb6f96c9faed5c5d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6a717e2ef89c51dd2589ad0f7f9352a53886d3f05cff5aa224913b035c303e90",
-				"dweb:/ipfs/QmYChojMG7tdVQHmWR9DEjXw1HFSYvsbNMx1HfHT95VphX"
+				"bzz-raw://8febce05cda10f9bedff3271718108c0297e80e22cc462c7b3dc66703ba83292",
+				"dweb:/ipfs/QmZqxTfX7BAGVfkHWCz98PTouZ23GCjMBw2VCdU8pk8Z8x"
 			]
 		},
-		"contracts/proxy/Proxy.sol": {
+		"proxy/ERC1967/ERC1967Upgrade.sol": {
+			"keccak256": "0xf846804af5d126646db3e0aadcaf245cef7f9297b381a9db756975c016d856ae",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://eac378be1e2eb05ab4af5819c2553c2e75820a0ebdfe60b6b473f210d6ece7ed",
+				"dweb:/ipfs/QmaERcqDG7bSCmBKg2R63M26NxCJbUa2xM9v1FZTZUUG6Z"
+			]
+		},
+		"proxy/ERC1967/IBeacon.sol": {
+			"keccak256": "0x69e09c6f079130e3608a163b7589a29baccdb4fc9a3b1f8b437c08e2e35395c0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d51b01c145cb8b76ae809b2688272da628f74ddc2526502fcbc5da0b2d1c138f",
+				"dweb:/ipfs/QmWHJjhBKbWWNwewrxVSgFWyLPW3PEBxkHbzy9B8r2onEM"
+			]
+		},
+		"proxy/Proxy.sol": {
 			"keccak256": "0x1b9788d2f62369d55aef39442b0a8c9b05114ff6cb0c59b4f0f4485d1648f0f2",
 			"license": "MIT",
 			"urls": [
@@ -101,12 +139,20 @@
 				"dweb:/ipfs/QmT4FW1G1unTdr7MTNHaUvDndjrM5Gj5AYcFMvkvq3HnXh"
 			]
 		},
-		"contracts/utils/Address.sol": {
+		"utils/Address.sol": {
 			"keccak256": "0xd217e5030771ed77e0df8d1028f05abdaba7df6991fc6e03229d8624c1999d9a",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://6f918396df8f3717ca4d2f978757604eb540b256a87e898e30105fab09010666",
 				"dweb:/ipfs/QmczhRz4N5D1vfWU1EGAGStDP57zNMLmqde9GBW3eFbAHR"
+			]
+		},
+		"utils/StorageSlot.sol": {
+			"keccak256": "0x8b11be685cb1f1a574707f89190beac61ade63e30a1b98aca146b29f0e6b3e50",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6d128b68c41e2f9007bafd39531ba1f1798587ac5760ca9da0440fe7c35d2315",
+				"dweb:/ipfs/QmatXLGSAw6UM69g46qbxVbaCsCH6mEHqkanDCR2KpH9Yo"
 			]
 		}
 	},

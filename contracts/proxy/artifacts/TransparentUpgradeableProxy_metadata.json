@@ -230,11 +230,11 @@
 			]
 		},
 		"proxy/TransparentUpgradeableProxy.sol": {
-			"keccak256": "0x66428d04d9f89a6b9a317e3e32976afddea57456b40d3e3df802eb65d569ea06",
+			"keccak256": "0x82749ff3a5ea99f4c80eee7f9a80790c0f43482d27eba8f3113f8e3798479d2a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://306d6d00ef1580990132f7367be5e0d677ddb99a0536533c98b913080a8a7f54",
-				"dweb:/ipfs/QmaUghmkJ4FRiRHLqbgKEqQyuDYnAuj7vv26C5tSFe254g"
+				"bzz-raw://b7aaa2f32961e045eae64411a8dd4cae6d32a2b4a3b1722d37c8087a432cda55",
+				"dweb:/ipfs/QmXYjzapHs1Jh8pnMYH1eAZYfSbQy3jeHm2FJkFxeguSpg"
 			]
 		},
 		"utils/Address.sol": {
