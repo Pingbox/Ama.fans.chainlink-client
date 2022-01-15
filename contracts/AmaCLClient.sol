@@ -242,14 +242,6 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
         twitterUsernameToAddress[keccakHash(_twitterUsernameName)] = _ethAddress;
 
     }
-
-
-
-    // /* check if the node has the tewitterName already set then*/
-    // function twitterNameExistsOnENS(bytes32 nameHash) internal view  {
-    //     require(EMPTY_STRING_KECCAKHASH == (keccakHash(PublicResolver(subDomainResolver).text(nameHash, TWITTER_KEY))), 
-    //     "TwitterName already present");
-    // }
     
     function userDetailsTwitter(address _address) 
         external 
@@ -260,7 +252,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
             // (string memory proposedUsername, string memory nameOnTwitter, address ethAddress,bool isTwitterVerified , ) = abi.decode(_response.data, (string,string,address,bool,bool));
             // (,string memory nameOnTwitter, string memory twitterURL, bool isTwitterVerified, ) = abi.decode(_response.data, (string,string,string,bool,bool));
             (,string memory nameOnTwitter, string memory profileImage, , bool isTwitterVerified) = decode_data(_response.data);
-            return (_response.twitterUsername, _response.label, nameOnTwitter, profileImage,isTwitterVerified );
+            return (_response.twitterUsername, _response.label, nameOnTwitter, profileImage, isTwitterVerified );
     }
     
 
@@ -332,8 +324,6 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
         require(_link.transfer(_address, _link.balanceOf(address(this))), "Unable to transfer");
     }
     
-
-
     function balance() 
         public 
         view  
@@ -348,12 +338,7 @@ contract AmaCLClient is Initializable, ChainlinkClient, AccessControl, AmaCLClie
     // upgrade and call fuunction. The AMAStorage should have an owner varibale which must be set through 
     // a function while deploying the proxy.
     function deleteVerification(address _ethaddress) external onlyRole(GOVERNANCE_ROLE)  {
-
         delete results[_ethaddress];
     }
-    
 
 }
-
-
-    

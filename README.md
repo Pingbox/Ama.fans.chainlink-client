@@ -1,4 +1,15 @@
-# Advanced Sample Hardhat Project
+
+
+#### Latest Deployments
+
+
+- Operator/orcale.sol: 0x7d346F96F1912e741B0eF5F74E7179584F4479A2
+- ProxyAdmin: 0x494aCE95BaB582805e556a152629f23Aa45bB0d8
+- AMACLClient: 0xb8FDF8e587baF78d3C34e77c21f75B0F6c48ddab
+- ProxyAddress: 0xf890d1b4ddc685369fd2ADE65A83522a0E3A185F
+
+
+
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
 
@@ -122,8 +133,21 @@ Points to not in the above jobSpec:
 6. Deploy ProxyAdmin or use the existing one ( if you already have deployed for Reputation/Posts contracts).
 7. Deploy the AmaCLClient.sol
 8. Now deploy TransparentUpgradeableProxy from scripts/deploy_amaclient.js using the address of PoxyAdmin and AmaClient. Call it AmaClientProxy.
-9. Go to you ENS app and change the controller of the concerned domain to the address of AmaClientProxy.
+9. Get the jobid from the chainlinks nodes, 
+
+```
+contract A{
+    bytes32 public JOB_ID;
+    function jobId()
+        external {
+        JOB_ID = "f6310343fb8c486b90d78ac4d14ec440";
+    }
+```
+Use this to get the jobid in bytes32 format.
 10. Transfer chainlink to AmaClientProxy, otherwise it will be unable to submit requests to operator.sol.
+11. Test it with a test 
+9. Go to you ENS app and change the controller of the concerned domain to the address of AmaClientProxy.
+10. 
 
 Now, for once you will have to ask users to call setApprovalForAll function on PublicKeyResolver with operator=AmaClientProxy and approved=True ; so that AmaClientProxy can take actions on behalf of the user on PublicKeyResolver.
 
@@ -140,3 +164,4 @@ Once approved, You can go to etherscan and check the reverse domain lookup.
 Call function function getNameFromAddress(address _address) external view returns (string memory) to get the reverse record for the address.
 To Find NameHash: https://swolfeyes.github.io/ethereum-namehash-calculator/ Owner: 0xFfc3CFEDe3b7fEb052B4C1299Ba161d12AeDf135
 
+Find jobID
