@@ -4,11 +4,9 @@
 
 
 - Operator/orcale.sol: 0x7d346F96F1912e741B0eF5F74E7179584F4479A2
-- ProxyAdmin: 0x494aCE95BaB582805e556a152629f23Aa45bB0d8
-- AMACLClient: 0xb8FDF8e587baF78d3C34e77c21f75B0F6c48ddab
-- ProxyAddress: 0xf890d1b4ddc685369fd2ADE65A83522a0E3A185F
-
-
+- ProxyAdmin: 0xfb4Ae36bcFFa5549385fae55745f3e75e2578668
+- AMACLClient: 0x2d8071B3C07766Ec82407C6Ea73Eb0252B8AAf8D
+- ProxyAddress: 0x2B78d48c3Ec51A087A706f0C50bfabFea4550ABe
 
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.

@@ -22,12 +22,13 @@ abstract contract ReverseRegistrar {
 
 contract AmaCLClientStorage{
     // using Chainlink for Chainlink.Request;
-    bytes32 constant public EMPTY_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
+    // bytes32 public constant ADDRESS_ALREADY_VERIFIED = "001001";
+    // bytes32 public constant ADDRESS_NOT_VERIFIED = "001002";
+    // bytes32 public constant TWITTER_USERNAME_ALREADY_CLAIMED = "001003";
+    // bytes32 public constant VERIFICATION_HASNT_STARTED = "001004";
+    // bytes32 public constant UNABLE_TO_TRANSFER = "001005";
+    bytes32 public constant EMPTY_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
     bytes32 public constant GOVERNANCE_ROLE =  keccak256("GOVERNANCE");
-
-
-    //.amafans
-    //bytes32  constant public ROOT_DOMAIN_NAME_HASH = 0x038eaf1bbed157c71ba2bb3681be8be9303cab863e7482dfb7fc868b43d2d8ee;
 
     struct Response {
         bytes32 reqID;
@@ -37,7 +38,6 @@ contract AmaCLClientStorage{
         bytes data; //[proposedSubDomain,nameOnTwitter,ethAddress,isTwitterVerified,isOnChainVerified]
     }
 
-
     IAmaENSClient public amaENSclientContract;
     address public oracle;
     bytes32 public jobId;
@@ -45,12 +45,12 @@ contract AmaCLClientStorage{
     uint256 public expiration;
     mapping(address => Response) public results; //eth address hash mapped to responses
     mapping(bytes32 => address ) public addressRequestIDs;
-
-    //Till the time Namewrapper isnt integrated, this mapping will be ued to 
-    // addresses associated with the keccakhash of the onchainUsername, 
-    //The onchian username could be different from the TwitterUsername because onChainUsername 
-    //is just twitterUsername without special characters.
-    mapping(bytes32 => address) public nodeHashToAddress; 
+    
+    // //Till the time Namewrapper isnt integrated, this mapping will be ued to 
+    // // addresses associated with the keccakhash of the onchainUsername, 
+    // //The onchian username could be different from the TwitterUsername because onChainUsername 
+    // //is just twitterUsername without special characters.
+    // mapping(bytes32 => address) public nodeHashToAddress; 
 
     //This maps the Keccakhash of the twitter username to the address of the user. 
     //This provides a quick way to decide if the TwitterUsername is already associated with an 

@@ -103,25 +103,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
-					}
-				],
-				"name": "nodeHashToAddress",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "oracle",
 				"outputs": [
@@ -221,11 +202,11 @@
 	},
 	"sources": {
 		"AmaCLClientStorage.sol": {
-			"keccak256": "0xbf71279e943273059cdfec753ae1914380fc4af6e3ec9dc652ce134522daf92a",
+			"keccak256": "0xac5649ebd7d5aadfa52528d77dda80586f52216c8fffda1d21af15f5c13cb13c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://949463f8a0c3a29f9b307a4c8736219c72c26f72560573c0eb2511020181febd",
-				"dweb:/ipfs/QmSsQ2JkrxqPbsv1D9S53gBagsFLY3wotiz3E1W8jLsVFb"
+				"bzz-raw://a755ccefc4f7bb183bbf2950841980102615c9b3cc3479026d49ea24bdf25f2b",
+				"dweb:/ipfs/QmWhLuSZLbeRZfpK23BmkvS67oSQC4UAvdufavqvjSE8VK"
 			]
 		},
 		"ENSInterface.sol": {
