@@ -207,6 +207,12 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         }
     }
 
+
+    function getNodeHash(string memory _label) external view returns (bytes32,bytes32,uint256){
+        return amaENSclientContract.getNodeHash(_label);
+
+    }
+
     
     function _setLabel(address _requester, string memory _label) private {
         results[_requester].label = _label;    
@@ -226,6 +232,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
                 uint256, 
                 bool){
             Response memory _response = results[_address];
+            require(_response.data.length != 0, "AmaCLClient: Request Verification");
             require(isPending(_response.reqID), "Please claimSubDomain");
             (,string memory nameOnTwitter, string memory profileImage, uint256 id, bool isTwitterVerified) = decodeData(_response.data);
             return (_response.twitterUsername, _response.label, nameOnTwitter, profileImage, id, isTwitterVerified );
