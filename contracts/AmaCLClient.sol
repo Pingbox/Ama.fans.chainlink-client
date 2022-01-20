@@ -22,12 +22,11 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         );
         
     event DomainRegistered(
-        address indexed _address,
+        address indexed useraddress,
         bytes32 indexed nodehash,
-        bytes32 indexed twitterUsernameHash,
-        string label,
-        uint256 twitterId
-
+        uint256 indexed twitterId,
+        string twitterUsername,
+        string label
         );
 
     event DifferentSubDomainAllowed(
@@ -170,7 +169,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         (bytes32 nodehash, string memory label) = _registerNode(msg.sender, _response.data, _response.twitterUsername);
         _setLabel(msg.sender, label);
         _setTwitterUsernameToAddress(_response.twitterUsername, msg.sender);
-        emit DomainRegistered(msg.sender, nodehash, keccak256(abi.encodePacked(_response.twitterUsername)), label, twitterID);
+        emit DomainRegistered(msg.sender, nodehash, twitterID, _response.twitterUsername, label);
     }
     
     function claimCustomSubDomain(
@@ -188,7 +187,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         (bytes32 nodehash, ) = _registerNode(msg.sender, _new, _response.twitterUsername);
         _setLabel(msg.sender, _differentLabel);
         _setTwitterUsernameToAddress(_response.twitterUsername, msg.sender);
-        emit DomainRegistered(msg.sender, nodehash, keccak256(abi.encodePacked(_response.twitterUsername)), _differentLabel, twitterID);
+        emit DomainRegistered(msg.sender, nodehash, twitterID, _response.twitterUsername, _differentLabel);
     }
 
 
