@@ -169,6 +169,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         (bytes32 nodehash, string memory label) = _registerNode(msg.sender, _response.data, _response.twitterUsername);
         _setLabel(msg.sender, label);
         _setTwitterUsernameToAddress(_response.twitterUsername, msg.sender);
+        twitterIdToAddress[twitterID] = msg.sender;
         emit DomainRegistered(msg.sender, nodehash, twitterID, _response.twitterUsername, label);
     }
     
@@ -187,6 +188,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         (bytes32 nodehash, ) = _registerNode(msg.sender, _new, _response.twitterUsername);
         _setLabel(msg.sender, _differentLabel);
         _setTwitterUsernameToAddress(_response.twitterUsername, msg.sender);
+        twitterIdToAddress[twitterID] = msg.sender;
         emit DomainRegistered(msg.sender, nodehash, twitterID, _response.twitterUsername, _differentLabel);
     }
 

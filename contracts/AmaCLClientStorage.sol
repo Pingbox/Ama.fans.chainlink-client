@@ -55,5 +55,6 @@ contract AmaCLClientStorage{
     //This maps the Keccakhash of the twitter username to the address of the user. 
     //This provides a quick way to decide if the TwitterUsername is already associated with an 
     //Ethereum address and if yes, Then by whom.
-    mapping(bytes32 => address) public twitterUsernameToAddress; 
+    mapping(bytes32 => address) public twitterUsernameToAddress;
+    mapping(uint256 => address) public twitterIdToAddress;
 }
