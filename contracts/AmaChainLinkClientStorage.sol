@@ -2,23 +2,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
 
-// import "./chainlink/v0.7/ChainlinkClient.sol";
-import "./ENSInterface.sol";
-import "./IAmaENSClient.sol";
 
-abstract contract NameResolver {
-    mapping (bytes32 => string) public name;
-    function setName(bytes32 _node, string memory _name) public virtual;
-}
-
-
-
-abstract contract ReverseRegistrar {
-    NameResolver public defaultResolver;
-    function setName(bytes32 _node, string memory name) virtual public;
-    function node(address addr) public virtual pure returns (bytes32);
-
-} 
 
 contract AmaChainLinkClientStorage{
     // using Chainlink for Chainlink.Request;
@@ -32,7 +16,7 @@ contract AmaChainLinkClientStorage{
 
     struct Response {
         bytes32 reqID;
-        string twitterUsername;
+        string username;
         string label;
         bool verifiedOnChain; //if the address has actually posted the tweet on twitter account and has been verified
         bytes data; //[proposedSubDomain,nameOnTwitter,ethAddress,isTwitterVerified,isOnChainVerified]
@@ -55,6 +39,6 @@ contract AmaChainLinkClientStorage{
     //This maps the Keccakhash of the twitter username to the address of the user. 
     //This provides a quick way to decide if the TwitterUsername is already associated with an 
     //Ethereum address and if yes, Then by whom.
-    mapping(bytes32 => address) public twitterUsernameToAddress;
-    mapping(uint256 => address) public twitterIdToAddress;
+    mapping(bytes32 => address) public usernameToAddress;
+    mapping(uint256 => address) internal socialIdToAddress;
 }

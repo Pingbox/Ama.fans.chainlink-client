@@ -10,7 +10,20 @@ import "./IAmaENSClient.sol";
 import "./chainlink/v0.7/interfaces/LinkTokenInterface.sol";
 import "./access/AccessControlUpgradeable.sol";
 
-contract AmaChainLinkClient is AmaChainLinkClientStorage, 
+interface IAmaSocialNetworkVerification{    
+        function userDetails(address _address) external view  returns (string memory, string memory, string memory, string memory, uint256, bool);
+        function getSocialIdToAddress(uint256 socialId) external view returns (address);
+        function getUsernameToAddress(string memory username) external view returns (address);
+        function requestVerification(string memory username) external  returns(bytes32);
+        function fulfillBytes(bytes32 _requestId, bytes calldata bytesData) external;
+        function getEncodedData() external view returns(bytes memory);
+}
+
+
+
+
+contract AmaChainLinkTwitterClient is IAmaSocialNetworkVerification, 
+                    AmaChainLinkClientStorage, 
                     Initializable, 
                     ChainlinkClient, 
                     ContextUpgradeable, 
@@ -46,10 +59,12 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
     function keccakHash(string memory _string)  public pure returns (bytes32){
         return keccak256(abi.encodePacked(_string));
     }
-    function initialize( 
+
+        function  initialize( 
                     address _owner,
                     address _oracle,
                     bytes32 _jobId) external initializer{
+
         //rinkeBy
         // setChainlinkToken(0x01BE23585060835E02B77ef475b0Cc51aA1e0709);
         // setChainlinkOracle(0x7fc02a01709718b25BF6E2F48D575Fef4682250F);
@@ -90,25 +105,38 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
         _;
     }
     
-    modifier twitterUsernameVerified(string memory _twitterUsername){
-        bytes32 _hash = keccakHash(_twitterUsername);
-        require(twitterUsernameToAddress[_hash] == address(0x0), "TWITTER_USERNAME_ALREADY_CLAIMED");
+    modifier twitterUsernameVerified(string memory _username){
+        bytes32 _hash = keccakHash(_username);
+        require(usernameToAddress[_hash] == address(0x0), "TWITTER_USERNAME_ALREADY_CLAIMED");
         _;
     }
     
-    function keccakHashBytes(bytes calldata _string)  public pure returns (bytes32){
-        return keccak256(_string);
+    function getUsernameToAddress(string memory _username) 
+        external 
+        override
+        view 
+        returns (address){
+       bytes32 _hash = keccakHash(_username);
+        return usernameToAddress[_hash];
     }
-    
-    
-    function requestTwitterVerification(string calldata _twitterUsername) 
+
+
+    function getSocialIdToAddress(uint256 socialId) 
+        external 
+        override
+        view returns (address){
+        return socialIdToAddress[socialId];
+    }
+
+    function requestVerification(string calldata _username) 
                             public
+                            override
                             ethAddressVerified()
-                            twitterUsernameVerified(_twitterUsername)
+                            twitterUsernameVerified(_username)
                             returns(bytes32){
 
     	Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfillBytes.selector);
-    	req.add("twitter_username", _twitterUsername);
+    	req.add("twitter_username", _username);
         req.addBytes("address_bytes", abi.encodePacked(_msgSender()));
         req.add("path", "result");
 
@@ -117,7 +145,7 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
         bytes32  _reqID =  requestOracleData(req, fee);
 
     	results[_msgSender()].reqID = _reqID;
-    	results[_msgSender()].twitterUsername = _twitterUsername;
+    	results[_msgSender()].username = _username;
 
     	addressRequestIDs[_reqID] = _msgSender();
 
@@ -127,7 +155,8 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
     //callback function
     function fulfillBytes(bytes32 _requestId, 
                     bytes calldata bytesData) 
-                    public 
+                    public
+                    override
                     recordChainlinkFulfillment(_requestId) {
     	   //require(_msgSender() == oracle, "Only operator can fullfill the request");
     	   address _requester =  addressRequestIDs[_requestId];
@@ -141,7 +170,7 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
         	   emit RequestFulfilled(_requester,  bytesData);
         	   return;
     	   }
-    	delete results[_requester].twitterUsername;
+    	delete results[_requester].username;
     	emit RequestErrored(_requester,  bytesData);
     }
     
@@ -154,20 +183,19 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
 
     function _afterVerification(address sender, bytes calldata bytesData)
         internal{
-        (string memory twitterUsername,,, uint256 twitterID,) = decodeData(bytesData);
-        _setTwitterUsernameToAddress(twitterUsername, sender);
-        twitterIdToAddress[twitterID] = _msgSender();
+        (string memory username,,, uint256 socialID,) = decodeData(bytesData);
+        bytes32 usernameHash = keccakHash(username); 
+        usernameToAddress[usernameHash] = sender;
+        socialIdToAddress[socialID] = sender;
 
-        emit DomainRegistered(sender, EMPTY_BYTES32, twitterID, twitterUsername, "");
+        emit DomainRegistered(sender, EMPTY_BYTES32, socialID, username, "");
 
     }
 
-    function _setTwitterUsernameToAddress(string memory _twitterUsernameName, address _ethAddress) private {
-        twitterUsernameToAddress[keccakHash(_twitterUsernameName)] = _ethAddress;
-    }
-    
-    function userDetailsTwitter(address _address) 
-        external 
+
+    function userDetails(address _address) 
+        external
+        override
         view 
         returns (string memory, 
                 string memory, 
@@ -179,7 +207,7 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
             require(_response.data.length != 0, "AmaCLClient: Request Verification");
             require(isPending(_response.reqID), "Please claimSubDomain");
             (,string memory nameOnTwitter, string memory profileImage, uint256 id, bool isTwitterVerified) = decodeData(_response.data);
-            return (_response.twitterUsername, _response.label, nameOnTwitter, profileImage, id, isTwitterVerified );
+            return (_response.username, _response.label, nameOnTwitter, profileImage, id, isTwitterVerified );
     }
     
 
@@ -208,6 +236,7 @@ contract AmaChainLinkClient is AmaChainLinkClientStorage,
     function getEncodedData()
                 external
                 view
+                override
                 returns(bytes memory) {
         bytes32 _requestId = results[_msgSender()].reqID;
         _verificationStarted(_requestId);

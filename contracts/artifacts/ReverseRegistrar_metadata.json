@@ -77,18 +77,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
-			"runs": 1000
+			"enabled": false,
+			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"AmaChainLinkClientStorage.sol": {
-			"keccak256": "0x1b1b41f2964efc6f47285511eef9d26ed36963beba8b0770f65152fe2d9e037d",
+			"keccak256": "0x900b3a6edc2e002b7ca0a2a6702855fcab6a05db1746f254d5438af00240bf16",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6886d37e514cc920d31fc89f19ea1ebd9d8c25e4f04cd1606773feea076ac95a",
-				"dweb:/ipfs/QmdwEqLBBZTzijz2AEdHeb23ZTsMrNXNHKsGWdGcVSNTiZ"
+				"bzz-raw://27497a0088b9fc81be4bc21cf77331f99dcd5cb227b28980eb4938440f6e57d3",
+				"dweb:/ipfs/QmWwc6RPC13odXCFYP86npGVMvvV7TnwztD2cYVknzTK3V"
 			]
 		},
 		"ENSInterface.sol": {
