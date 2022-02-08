@@ -20,7 +20,7 @@ abstract contract ReverseRegistrar {
 
 } 
 
-contract AmaCLClientStorage{
+contract AmaChainLinkClientStorage{
     // using Chainlink for Chainlink.Request;
     // bytes32 public constant ADDRESS_ALREADY_VERIFIED = "001001";
     // bytes32 public constant ADDRESS_NOT_VERIFIED = "001002";
@@ -38,7 +38,7 @@ contract AmaCLClientStorage{
         bytes data; //[proposedSubDomain,nameOnTwitter,ethAddress,isTwitterVerified,isOnChainVerified]
     }
 
-    IAmaENSClient public amaENSclientContract;
+    // IAmaENSClient public amaENSclientContract;
     address public oracle;
     bytes32 public jobId;
     uint256 public fee;

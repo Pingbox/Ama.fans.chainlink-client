@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.0+commit.c7dfd78e"
+		"version": "0.7.6+commit.7338295f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -18,7 +18,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/utils/Context.sol": "Context"
+			"utils/Context.sol": "Context"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -26,18 +26,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
-		"contracts/utils/Context.sol": {
-			"keccak256": "0xba6ddba08488c0fd0249ecbf73d94db554b664e5460e05335633d38988fb1947",
+		"utils/Context.sol": {
+			"keccak256": "0xd3e88da8695a1d63936f7bbf3b3441056c44d167e679a80f9a1b5ffafb11fad9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8d39e2090185cd7852447d004adb908b40e2c7adc8831ee1a7d6eb6dea664ddc",
-				"dweb:/ipfs/QmQZPEkHcJ8hbEbRr8vvUrCWPs7XRBmwLXbUQc9Mmx39Lx"
+				"bzz-raw://587786c556944a0a561b5f5ab16716263b42ca8dd6cc1102b75f4c4d1a802325",
+				"dweb:/ipfs/QmU9Y13bBrVy2uE4TiHfPSTFQXV2BeUnxrMo135zRy7wJT"
 			]
 		}
 	},

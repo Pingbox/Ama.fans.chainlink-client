@@ -63,6 +63,43 @@
 					{
 						"indexed": true,
 						"internalType": "address",
+						"name": "useraddress",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "nodehash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "twitterId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "twitterUsername",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "label",
+						"type": "string"
+					}
+				],
+				"name": "DomainRegistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
 						"name": "_address",
 						"type": "address"
 					},
@@ -230,19 +267,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "amaENSclientContract",
-				"outputs": [
-					{
-						"internalType": "contract IAmaENSClient",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "balance",
 				"outputs": [
 					{
@@ -257,26 +281,6 @@
 			{
 				"inputs": [],
 				"name": "cancelRequest",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_differentLabel",
-						"type": "string"
-					}
-				],
-				"name": "claimCustomSubDomain",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "claimSubDomain",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -346,44 +350,6 @@
 						"internalType": "bytes",
 						"name": "",
 						"type": "bytes"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_label",
-						"type": "string"
-					}
-				],
-				"name": "getEthAddress",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_address",
-						"type": "address"
-					}
-				],
-				"name": "getLabel",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -497,11 +463,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_amaENSclientAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
 						"name": "_owner",
 						"type": "address"
 					},
@@ -556,20 +517,20 @@
 			{
 				"inputs": [
 					{
+						"internalType": "bytes",
+						"name": "_string",
+						"type": "bytes"
+					}
+				],
+				"name": "keccakHashBytes",
+				"outputs": [
+					{
 						"internalType": "bytes32",
 						"name": "",
 						"type": "bytes32"
 					}
 				],
-				"name": "nodeHashToAddress",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -611,7 +572,7 @@
 						"type": "string"
 					}
 				],
-				"name": "requestVerification",
+				"name": "requestTwitterVerification",
 				"outputs": [
 					{
 						"internalType": "bytes32",
@@ -682,19 +643,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "_address",
-						"type": "address"
-					}
-				],
-				"name": "setAMAEnsClient",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "bytes32",
 						"name": "_jobId",
 						"type": "bytes32"
@@ -716,6 +664,25 @@
 				"name": "setOracle",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "twitterIdToAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -766,6 +733,11 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					},
 					{
 						"internalType": "bool",
@@ -833,26 +805,26 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
 		"AmaCLClient.sol": {
-			"keccak256": "0x6a1ee6d76909feb4dbeb30891f1a5db06ee521198f02386ab0d05d675f5cffd1",
+			"keccak256": "0xdb5dd51f94766b2719afcfed875d2b07fa178c7a821ff5060fab4e12ee244604",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://822b3422093b6b4a7043ff34337af731be554c2d44385593e19c6264308f341d",
-				"dweb:/ipfs/QmXduzYTMVrWU8UrxG7ks9FvFpvqSBpKzAHhE4SMpMATEn"
+				"bzz-raw://f161a2963bcca6545e3afb93a99992a38360ce1585bc2f167f555597a0be9844",
+				"dweb:/ipfs/QmczzswqWxQx1G1c4niXkpwEUFWD9gD9vja2gXxVe8R7Pc"
 			]
 		},
 		"AmaCLClientStorage.sol": {
-			"keccak256": "0xbf71279e943273059cdfec753ae1914380fc4af6e3ec9dc652ce134522daf92a",
+			"keccak256": "0xd28e9db0472445bb30c83ca8fb5a5a3ebee6ab106add24e33ec0ec90ad71a1e0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://949463f8a0c3a29f9b307a4c8736219c72c26f72560573c0eb2511020181febd",
-				"dweb:/ipfs/QmSsQ2JkrxqPbsv1D9S53gBagsFLY3wotiz3E1W8jLsVFb"
+				"bzz-raw://34355dd946e7441aec102fd089d9f41e1522d2f856be835cfd048c23c109cfd6",
+				"dweb:/ipfs/QmWmzSVTvmqryqmHkvoYk6KQKxUuDuzAw4VGzEehzkAFRR"
 			]
 		},
 		"ENSInterface.sol": {
@@ -871,36 +843,12 @@
 				"dweb:/ipfs/QmQopJgqeofExuzCKA7ExQS1BzppCy3LcM56snNg2r3Ai7"
 			]
 		},
-		"access/AccessControl.sol": {
-			"keccak256": "0x0bf67f0847f39a0dfb909b4b68d8273f67739f68e5c44c04418156f6d8a11ea1",
+		"access/AccessControlUpgradeable.sol": {
+			"keccak256": "0xdba1d408db17777d80af35351df1d8fdfb3c8a06a7790cfb8de88693ea89683b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://16fafb7eb495c86faa5485de08b70f9abdd0c8f9f214b8704a0dfe9f748a33d6",
-				"dweb:/ipfs/QmNLhVsGvXq23R6X3y5mjLuuwCNKpg6qfVvFZxw4W8mDkh"
-			]
-		},
-		"access/Address.sol": {
-			"keccak256": "0xf6ef080fad8534f258b526768063c666e701b135ec3bde9bdffc77254e399515",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://043eada9acabd207d4aaa1706ca581c514ba75e8ec9183a805ff8d1f25ccd445",
-				"dweb:/ipfs/QmU6fLUSyR7YSMVtcGtj5epEvpxDBERGMS5L92WG7JKQVH"
-			]
-		},
-		"access/Context.sol": {
-			"keccak256": "0xd3e88da8695a1d63936f7bbf3b3441056c44d167e679a80f9a1b5ffafb11fad9",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://587786c556944a0a561b5f5ab16716263b42ca8dd6cc1102b75f4c4d1a802325",
-				"dweb:/ipfs/QmU9Y13bBrVy2uE4TiHfPSTFQXV2BeUnxrMo135zRy7wJT"
-			]
-		},
-		"access/EnumerableSet.sol": {
-			"keccak256": "0x9b5fc5c4cc4328e77b03040210a5c5e1d962e4c27c39ba158304bf0da7e19c7e",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://55e32c9a45505869c0ec0c8dd766f094f83f76cae187faeaa21e3974bf108ead",
-				"dweb:/ipfs/QmdavSe16js7adAHekEaaT1gvxYGtEy4tNsH7NNnwz2dKg"
+				"bzz-raw://393fe7ad3f5fb8de6f5400ddce2b4c8c911f475f098922d01a5948f6daea30ed",
+				"dweb:/ipfs/Qmehnug5dsgFX5GUAPLFcKBYhhJXJDrpheLQvnVDZYZm6A"
 			]
 		},
 		"chainlink/v0.7/Chainlink.sol": {
@@ -991,20 +939,44 @@
 				"dweb:/ipfs/Qme96jhN3CEZg42fTQgWJiyAt7c99vtcHd7QcKjVzJhn6A"
 			]
 		},
-		"utils/AddressUpgradeable.sol": {
-			"keccak256": "0x059506740847d87dcbac86beba10180c26ccc431b5249395eb6a3efa6faca05b",
+		"proxy/Initializable.sol": {
+			"keccak256": "0x4e2a0626910db7398bd8d6b9269233489c5a737f8bc0b52da3f167da1727d522",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0342976fcaa224fde8d8ff5cef4bc894cfff1eba54e7cd97d6c8a2cd2027dcbf",
-				"dweb:/ipfs/QmenKap6Ef8LDVvuJ7XHb395MwCEDgEX96iKKrrxGzdaiT"
+				"bzz-raw://4e0823f80ef056b6f20f4612c1c78383dec211b8e910191abd34eb56bcaf25ca",
+				"dweb:/ipfs/QmYKjQxAsPtctNJuef5GK7wZPtNwnKnKmwSVXQ5h1c64w9"
 			]
 		},
-		"utils/Initializable.sol": {
-			"keccak256": "0x950e681c3daf1800811144a50f53ddfb3d74b4f774583ed9186dbcb6ff3fa28d",
+		"utils/Address.sol": {
+			"keccak256": "0x292e71c523a7d3579b814198a3e161e77410d48b4bc025b9d7efa42cd6ba70d4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://69b0c5bde115c72b0e14db3e0c9fd1615eb6edbb536b31cc3bc99790db72ce35",
-				"dweb:/ipfs/QmU4Jxzh3v3R3NrbH3xjXo5CG37Rpf6Ywe8cLL6BHpi2J2"
+				"bzz-raw://4cb20cac3fbbf051c339230d99b35349703bd4f946a40066e0eaa903ab33ae2d",
+				"dweb:/ipfs/Qmeae7ixa2AwtEpwhTTVxuf2UJyheJEdDKzHyvrWoyHNpL"
+			]
+		},
+		"utils/AddressUpgradeable.sol": {
+			"keccak256": "0x1d61fd2a04943df98d9fcbe6801a5f1a1fac175f988854a3946998703be96977",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0402187f1ff780ffb4e0326074f3f07468859aadbfa27fcccc3077aaf7b4298c",
+				"dweb:/ipfs/QmeNF1Vn1wwBYc6GexiBH2nSQgfUDNekpsy5STdsKy8Ftu"
+			]
+		},
+		"utils/ContextUpgradeable.sol": {
+			"keccak256": "0xcb7db52926ed51f054aa7f1be562ebf63de8c54930e5c35f2163b3bd7f5f2096",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b063ea0f56b13b581f2bf6c24dbe88c2e9c8e78eabbb3f7f914546859a5154fd",
+				"dweb:/ipfs/QmaTUae9eomg5DLNV3KLgfzLjkwhBe3HDapSYoJbWn72Ex"
+			]
+		},
+		"utils/EnumerableSetUpgradeable.sol": {
+			"keccak256": "0x804a25b420666af2f971461bfdb8cccf6e04b9350c24b06e25923a035731aaff",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f8030a2298db851c5af6ab478a321c66f701f5dc2a7b6225e72d4f848b5a72f7",
+				"dweb:/ipfs/QmW5aVu6nQ8nAQN2GU5Nwe9paZaBUbubbsdBUxGaGoSdkD"
 			]
 		}
 	},

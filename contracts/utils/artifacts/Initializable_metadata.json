@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.7.0+commit.9e61f92b"
+		"version": "0.7.6+commit.7338295f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -35,26 +35,26 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
-		"utils/AddressUpgradeable.sol": {
-			"keccak256": "0x059506740847d87dcbac86beba10180c26ccc431b5249395eb6a3efa6faca05b",
+		"utils/Address.sol": {
+			"keccak256": "0xf6ef080fad8534f258b526768063c666e701b135ec3bde9bdffc77254e399515",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0342976fcaa224fde8d8ff5cef4bc894cfff1eba54e7cd97d6c8a2cd2027dcbf",
-				"dweb:/ipfs/QmenKap6Ef8LDVvuJ7XHb395MwCEDgEX96iKKrrxGzdaiT"
+				"bzz-raw://043eada9acabd207d4aaa1706ca581c514ba75e8ec9183a805ff8d1f25ccd445",
+				"dweb:/ipfs/QmU6fLUSyR7YSMVtcGtj5epEvpxDBERGMS5L92WG7JKQVH"
 			]
 		},
 		"utils/Initializable.sol": {
-			"keccak256": "0x950e681c3daf1800811144a50f53ddfb3d74b4f774583ed9186dbcb6ff3fa28d",
+			"keccak256": "0x7c478747a8e2ef4cc3a58caab494bce96f2535608c46622806d4d39ae7ae297b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://69b0c5bde115c72b0e14db3e0c9fd1615eb6edbb536b31cc3bc99790db72ce35",
-				"dweb:/ipfs/QmU4Jxzh3v3R3NrbH3xjXo5CG37Rpf6Ywe8cLL6BHpi2J2"
+				"bzz-raw://c305d49a79539a68104e03c7fcb6379dce2b2abf3164c22ea7f45b1fc77cd0c2",
+				"dweb:/ipfs/QmXztc2hNfz6WeBA2KXxR9gUGcAwp1teBFKSovWQxGwu15"
 			]
 		}
 	},

@@ -3,13 +3,18 @@ pragma solidity ^0.7.0;
 pragma experimental ABIEncoderV2;
 
 import "./chainlink/v0.7/ChainlinkClient.sol";
-import "./AmaCLClientStorage.sol";
-import "./utils/Initializable.sol";
+import "./AmaChainLinkClientStorage.sol";
+import "./proxy/Initializable.sol";
+import "./utils/ContextUpgradeable.sol";
 import "./IAmaENSClient.sol";
 import "./chainlink/v0.7/interfaces/LinkTokenInterface.sol";
-import "./access/AccessControl.sol";
+import "./access/AccessControlUpgradeable.sol";
 
-contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, AccessControl{
+contract AmaChainLinkClient is AmaChainLinkClientStorage, 
+                    Initializable, 
+                    ChainlinkClient, 
+                    ContextUpgradeable, 
+                    AccessControlUpgradeable{
     using Chainlink for Chainlink.Request;
     event RequestFulfilled(
         address indexed _address,
@@ -34,14 +39,14 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         );  
     
     modifier onlyRole (bytes32 _role) {
-        require(hasRole(_role, msg.sender), "MISSING_ROLE");
+        require(hasRole(_role, _msgSender()), "MISSING_ROLE");
         _;
     }
     
     function keccakHash(string memory _string)  public pure returns (bytes32){
         return keccak256(abi.encodePacked(_string));
     }
-    function initialize(address _amaENSclientAddress, 
+    function initialize( 
                     address _owner,
                     address _oracle,
                     bytes32 _jobId) external initializer{
@@ -59,19 +64,14 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         expiration = block.timestamp + 15 minutes;
 
         // ensContract = ENS(_ensAddress);
-        amaENSclientContract = IAmaENSClient(_amaENSclientAddress);
+        // amaENSclientContract = IAmaENSClient(_amaENSclientAddress);
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
         super._setupRole(DEFAULT_ADMIN_ROLE, _owner);
         super._setupRole(GOVERNANCE_ROLE, _owner);
         super._setRoleAdmin(GOVERNANCE_ROLE, DEFAULT_ADMIN_ROLE);    
         }
   
-
-
-    function setAMAEnsClient(address _address) 
-                external  
-                onlyRole(GOVERNANCE_ROLE){
-        amaENSclientContract = IAmaENSClient(_address);
-    }
     
     function setJobId(bytes32 _jobId) 
         external 
@@ -86,7 +86,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         }
   
     modifier ethAddressVerified(){
-        require(results[msg.sender].verifiedOnChain == false, "ADDRESS_ALREADY_VERIFIED");
+        require(results[_msgSender()].verifiedOnChain == false, "ADDRESS_ALREADY_VERIFIED");
         _;
     }
     
@@ -101,7 +101,7 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
     }
     
     
-    function requestVerification(string calldata _twitterUsername) 
+    function requestTwitterVerification(string calldata _twitterUsername) 
                             public
                             ethAddressVerified()
                             twitterUsernameVerified(_twitterUsername)
@@ -109,17 +109,17 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
 
     	Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfillBytes.selector);
     	req.add("twitter_username", _twitterUsername);
-        req.addBytes("address_bytes", abi.encodePacked(msg.sender));
+        req.addBytes("address_bytes", abi.encodePacked(_msgSender()));
         req.add("path", "result");
 
         // req.add("copyPath", "RAW.ETH.USD.LASTMARKET");
         // bytes32  _reqID =  requestOracleData(req, fee);
         bytes32  _reqID =  requestOracleData(req, fee);
 
-    	results[msg.sender].reqID = _reqID;
-    	results[msg.sender].twitterUsername = _twitterUsername;
+    	results[_msgSender()].reqID = _reqID;
+    	results[_msgSender()].twitterUsername = _twitterUsername;
 
-    	addressRequestIDs[_reqID] = msg.sender;
+    	addressRequestIDs[_reqID] = _msgSender();
 
     	return _reqID;
     }
@@ -129,14 +129,14 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
                     bytes calldata bytesData) 
                     public 
                     recordChainlinkFulfillment(_requestId) {
-    	   //require(msg.sender == oracle, "Only operator can fullfill the request");
+    	   //require(_msgSender() == oracle, "Only operator can fullfill the request");
     	   address _requester =  addressRequestIDs[_requestId];
 
     	   if (bytesData.length >100 ){
     	   
         	   results[_requester].verifiedOnChain = true;
         	   results[_requester].data = bytesData;
-    
+                _afterVerification(_requester, bytesData);
         	   delete addressRequestIDs[_requestId];
         	   emit RequestFulfilled(_requester,  bytesData);
         	   return;
@@ -146,77 +146,20 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
     }
     
     function cancelRequest() public {
-         Response memory _response = results[msg.sender];
+         Response memory _response = results[_msgSender()];
         // cancellation must be called from the callback address specified in the request
         cancelChainlinkRequest(_response.reqID, fee, this.fulfillBytes.selector, expiration);
         // the LINK paid for the request is transfered back to the cancelling address
       }
-    
-    /* proposedUsername is the twittername with no speacial chars as they arent accepted on ens subdomains.
-    * if the labelahsh for this proposedUsername already exists then the user will have to call the same function 
-    * with a self chosen porposedName. If clashes happens, results[_ethaddressHash].diffDomainAllowed = true 
-    */
-    function claimSubDomain() 
-            external 
-            {
-        Response memory _response = results[msg.sender];
-        (,,, uint256 twitterID,) = decodeData(_response.data);
-        require(_response.verifiedOnChain, "ADDRESS_NOT_VERIFIED");
-        /* it might be a possibility that a twitterUsername has a different proposedUsername because of presence of 
-        *special chars in twitterUserName, Two users can have same proposedUsername in theory. So its checking if the 
-        * recordExists for the NameHash of the proposeUsername and then users will have to claim with differentProposeUsername        
-        */
-        (bytes32 nodehash, string memory label) = _registerNode(msg.sender, _response.data, _response.twitterUsername);
-        _setLabel(msg.sender, label);
-        _setTwitterUsernameToAddress(_response.twitterUsername, msg.sender);
-        twitterIdToAddress[twitterID] = msg.sender;
-        emit DomainRegistered(msg.sender, nodehash, twitterID, _response.twitterUsername, label);
-    }
-    
-    function claimCustomSubDomain(
-                    string calldata _differentLabel)
-                    external {
-        Response memory _response = results[msg.sender];
-        require(_response.verifiedOnChain, "ADDRESS_NOT_VERIFIED");
 
-        (,string memory nameOnTwitter, 
-        string memory profileImage, 
-        uint256 twitterID, 
-        bool isTwitterVerified) = decodeData(_response.data);
+    function _afterVerification(address sender, bytes calldata bytesData)
+        internal{
+        (string memory twitterUsername,,, uint256 twitterID,) = decodeData(bytesData);
+        _setTwitterUsernameToAddress(twitterUsername, sender);
+        twitterIdToAddress[twitterID] = _msgSender();
 
-        bytes memory _new = abi.encode(_differentLabel, nameOnTwitter, profileImage, twitterID, isTwitterVerified);
-        (bytes32 nodehash, ) = _registerNode(msg.sender, _new, _response.twitterUsername);
-        _setLabel(msg.sender, _differentLabel);
-        _setTwitterUsernameToAddress(_response.twitterUsername, msg.sender);
-        twitterIdToAddress[twitterID] = msg.sender;
-        emit DomainRegistered(msg.sender, nodehash, twitterID, _response.twitterUsername, _differentLabel);
-    }
+        emit DomainRegistered(sender, EMPTY_BYTES32, twitterID, twitterUsername, "");
 
-
-    function _registerNode(address _owner, 
-                            bytes memory _clData, 
-                            string memory twitterUsername) 
-                            private 
-                            returns (bytes32, string memory){
-        try amaENSclientContract.registerNode(_owner, _clData, twitterUsername) returns (bytes32 nodehash, string memory label) {
-            return (nodehash, label);
-        } catch Error(string memory _err) {
-            // This is executed in case
-            // revert was called inside getData
-            // and a reason string was provided.
-            revert(_err);
-        }
-    }
-
-
-    function getNodeHash(string memory _label) external view returns (bytes32,bytes32,uint256){
-        return amaENSclientContract.getNodeHash(_label);
-
-    }
-
-    
-    function _setLabel(address _requester, string memory _label) private {
-        results[_requester].label = _label;    
     }
 
     function _setTwitterUsernameToAddress(string memory _twitterUsernameName, address _ethAddress) private {
@@ -262,30 +205,14 @@ contract AmaCLClient is AmaCLClientStorage, Initializable, ChainlinkClient, Acce
         return true;
     }
     
-    /* this si to get the label present on the amafans.eth domain
-    / for example the label is graphicaldot then the subdomain present on the domain is graphicaldot.amafans.eth
-    */
-    function getLabel(address _address) 
-                            external
-                            view 
-                            returns(string memory) {
-        bytes32 _requestId = results[_address].reqID;
-        _verificationStarted(_requestId);
-        if (isPending(_requestId) == true) {
-            return results[_address].label ; 
-        }
-        return "";
-
-    }
-    
     function getEncodedData()
                 external
                 view
                 returns(bytes memory) {
-        bytes32 _requestId = results[msg.sender].reqID;
+        bytes32 _requestId = results[_msgSender()].reqID;
         _verificationStarted(_requestId);
         if (isPending(_requestId) == true) {
-            return results[msg.sender].data; 
+            return results[_msgSender()].data; 
         }
         return "";
     }

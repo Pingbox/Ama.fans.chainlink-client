@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.10+commit.fc410830"
+		"version": "0.7.6+commit.7338295f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -30,24 +30,24 @@
 		"compilationTarget": {
 			"proxy/Proxy.sol": "Proxy"
 		},
-		"evmVersion": "london",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
 		"proxy/Proxy.sol": {
-			"keccak256": "0x1b9788d2f62369d55aef39442b0a8c9b05114ff6cb0c59b4f0f4485d1648f0f2",
+			"keccak256": "0xc9f8d188cc6978a0bf72b7bc83e86c396f2fc37f726994747397df728357e799",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://35d1f8588cf1c70820a1aa2249862d663db591327cc0f94efad1d615c3ec76b4",
-				"dweb:/ipfs/QmT4FW1G1unTdr7MTNHaUvDndjrM5Gj5AYcFMvkvq3HnXh"
+				"bzz-raw://2642081750c7caec73823eeae61214c43ee476030bd4fcba51290cfe62fde8f8",
+				"dweb:/ipfs/QmVP35SsGyNWmknzRJBdCYwj5tfeV2V4sAVQFX5ukHmEud"
 			]
 		}
 	},

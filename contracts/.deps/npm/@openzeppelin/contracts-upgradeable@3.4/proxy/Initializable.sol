@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
 // solhint-disable-next-line compiler-version
-pragma solidity ^0.7.0;
+pragma solidity >=0.4.24 <0.8.0;
 
-import "./AddressUpgradeable.sol";
+import "../utils/AddressUpgradeable.sol";
 
 /**
  * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed
@@ -33,7 +33,7 @@ abstract contract Initializable {
      * @dev Modifier to protect an initializer function from being invoked twice.
      */
     modifier initializer() {
-        require(_initializing || !_initialized, "Initializable: contract is already initialized");
+        require(_initializing || _isConstructor() || !_initialized, "Initializable: contract is already initialized");
 
         bool isTopLevelCall = !_initializing;
         if (isTopLevelCall) {
@@ -46,5 +46,10 @@ abstract contract Initializable {
         if (isTopLevelCall) {
             _initializing = false;
         }
+    }
+
+    /// @dev Returns true if and only if the function is running in the constructor
+    function _isConstructor() private view returns (bool) {
+        return !AddressUpgradeable.isContract(address(this));
     }
 }
