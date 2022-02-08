@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.3+commit.8d00100c"
+		"version": "0.7.6+commit.7338295f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -19,7 +19,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/utils/Address.sol": "Address"
+			"utils/Address.sol": "Address"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -27,18 +27,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
-		"contracts/utils/Address.sol": {
-			"keccak256": "0xd217e5030771ed77e0df8d1028f05abdaba7df6991fc6e03229d8624c1999d9a",
+		"utils/Address.sol": {
+			"keccak256": "0x292e71c523a7d3579b814198a3e161e77410d48b4bc025b9d7efa42cd6ba70d4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6f918396df8f3717ca4d2f978757604eb540b256a87e898e30105fab09010666",
-				"dweb:/ipfs/QmczhRz4N5D1vfWU1EGAGStDP57zNMLmqde9GBW3eFbAHR"
+				"bzz-raw://4cb20cac3fbbf051c339230d99b35349703bd4f946a40066e0eaa903ab33ae2d",
+				"dweb:/ipfs/Qmeae7ixa2AwtEpwhTTVxuf2UJyheJEdDKzHyvrWoyHNpL"
 			]
 		}
 	},

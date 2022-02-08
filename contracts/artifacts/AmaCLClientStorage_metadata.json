@@ -52,19 +52,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "amaENSclientContract",
-				"outputs": [
-					{
-						"internalType": "contract IAmaENSClient",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "expiration",
 				"outputs": [
 					{
@@ -206,7 +193,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"AmaCLClientStorage.sol": "AmaCLClientStorage"
+			"AmaChainLinkClientStorage.sol": "AmaCLClientStorage"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -215,17 +202,17 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
-		"AmaCLClientStorage.sol": {
-			"keccak256": "0x46a4da5f7360a7162bd5a0a4dcfe5d31093984a7772752d0a414a339d717f093",
+		"AmaChainLinkClientStorage.sol": {
+			"keccak256": "0xd28e9db0472445bb30c83ca8fb5a5a3ebee6ab106add24e33ec0ec90ad71a1e0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7b36edc8c621da95d51f3e67e5dccb1bc1cc5c6783c8560b11f6b95344f6babd",
-				"dweb:/ipfs/QmcF8pa1uHY6VauVr6KwWS1mps2LH78xnByonkAZ7MRj8k"
+				"bzz-raw://34355dd946e7441aec102fd089d9f41e1522d2f856be835cfd048c23c109cfd6",
+				"dweb:/ipfs/QmWmzSVTvmqryqmHkvoYk6KQKxUuDuzAw4VGzEehzkAFRR"
 			]
 		},
 		"ENSInterface.sol": {

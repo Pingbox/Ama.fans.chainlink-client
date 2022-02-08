@@ -27,18 +27,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
 		"utils/AddressUpgradeable.sol": {
-			"keccak256": "0x059506740847d87dcbac86beba10180c26ccc431b5249395eb6a3efa6faca05b",
+			"keccak256": "0x1d61fd2a04943df98d9fcbe6801a5f1a1fac175f988854a3946998703be96977",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0342976fcaa224fde8d8ff5cef4bc894cfff1eba54e7cd97d6c8a2cd2027dcbf",
-				"dweb:/ipfs/QmenKap6Ef8LDVvuJ7XHb395MwCEDgEX96iKKrrxGzdaiT"
+				"bzz-raw://0402187f1ff780ffb4e0326074f3f07468859aadbfa27fcccc3077aaf7b4298c",
+				"dweb:/ipfs/QmeNF1Vn1wwBYc6GexiBH2nSQgfUDNekpsy5STdsKy8Ftu"
 			]
 		}
 	},

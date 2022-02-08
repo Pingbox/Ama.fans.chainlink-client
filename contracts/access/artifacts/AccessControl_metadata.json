@@ -289,34 +289,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
 		"access/AccessControl.sol": {
-			"keccak256": "0x0bf67f0847f39a0dfb909b4b68d8273f67739f68e5c44c04418156f6d8a11ea1",
+			"keccak256": "0xd4ffb7f83d5b340732045a296b9414f8768445d55d29a9d8f0862f2dd6508077",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://16fafb7eb495c86faa5485de08b70f9abdd0c8f9f214b8704a0dfe9f748a33d6",
-				"dweb:/ipfs/QmNLhVsGvXq23R6X3y5mjLuuwCNKpg6qfVvFZxw4W8mDkh"
-			]
-		},
-		"access/Address.sol": {
-			"keccak256": "0xf6ef080fad8534f258b526768063c666e701b135ec3bde9bdffc77254e399515",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://043eada9acabd207d4aaa1706ca581c514ba75e8ec9183a805ff8d1f25ccd445",
-				"dweb:/ipfs/QmU6fLUSyR7YSMVtcGtj5epEvpxDBERGMS5L92WG7JKQVH"
-			]
-		},
-		"access/Context.sol": {
-			"keccak256": "0xd3e88da8695a1d63936f7bbf3b3441056c44d167e679a80f9a1b5ffafb11fad9",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://587786c556944a0a561b5f5ab16716263b42ca8dd6cc1102b75f4c4d1a802325",
-				"dweb:/ipfs/QmU9Y13bBrVy2uE4TiHfPSTFQXV2BeUnxrMo135zRy7wJT"
+				"bzz-raw://048883a40378c811b3ac467aa068689ca38f604a80e534cc2710d65bd3e4f9b1",
+				"dweb:/ipfs/QmaMYvGJsHnTdPqAsxyWLS5QgBXRXZAT72xtnghjvSuEwp"
 			]
 		},
 		"access/EnumerableSet.sol": {
@@ -325,6 +309,22 @@
 			"urls": [
 				"bzz-raw://55e32c9a45505869c0ec0c8dd766f094f83f76cae187faeaa21e3974bf108ead",
 				"dweb:/ipfs/QmdavSe16js7adAHekEaaT1gvxYGtEy4tNsH7NNnwz2dKg"
+			]
+		},
+		"utils/Address.sol": {
+			"keccak256": "0xf6ef080fad8534f258b526768063c666e701b135ec3bde9bdffc77254e399515",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://043eada9acabd207d4aaa1706ca581c514ba75e8ec9183a805ff8d1f25ccd445",
+				"dweb:/ipfs/QmU6fLUSyR7YSMVtcGtj5epEvpxDBERGMS5L92WG7JKQVH"
+			]
+		},
+		"utils/Context.sol": {
+			"keccak256": "0xd3e88da8695a1d63936f7bbf3b3441056c44d167e679a80f9a1b5ffafb11fad9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://587786c556944a0a561b5f5ab16716263b42ca8dd6cc1102b75f4c4d1a802325",
+				"dweb:/ipfs/QmU9Y13bBrVy2uE4TiHfPSTFQXV2BeUnxrMo135zRy7wJT"
 			]
 		}
 	},

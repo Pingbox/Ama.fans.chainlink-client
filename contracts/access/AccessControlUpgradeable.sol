@@ -2,9 +2,10 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "./EnumerableSet.sol";
-import "./Address.sol";
-import "./Context.sol";
+import "../utils/EnumerableSetUpgradeable.sol";
+import "../utils/AddressUpgradeable.sol";
+import "../utils/ContextUpgradeable.sol";
+import "../proxy/Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access
@@ -41,12 +42,19 @@ import "./Context.sol";
  * grant and revoke this role. Extra precautions should be taken to secure
  * accounts that have been granted it.
  */
-abstract contract AccessControl is Context {
-    using EnumerableSet for EnumerableSet.AddressSet;
-    using Address for address;
+abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable {
+    function __AccessControl_init() internal initializer {
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
+    }
+
+    function __AccessControl_init_unchained() internal initializer {
+    }
+    using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
+    using AddressUpgradeable for address;
 
     struct RoleData {
-        EnumerableSet.AddressSet members;
+        EnumerableSetUpgradeable.AddressSet members;
         bytes32 adminRole;
     }
 
@@ -214,4 +222,5 @@ abstract contract AccessControl is Context {
             emit RoleRevoked(role, account, _msgSender());
         }
     }
+    uint256[49] private __gap;
 }

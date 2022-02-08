@@ -1,11 +1,10 @@
+
+   
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.3.2 (access/Ownable.sol)
 
 pragma solidity ^0.7.0;
 
-import "./ContextUpgradeable.sol";
-import "./Initializable.sol";
-
+import "../utils/Context.sol";
 /**
  * @dev Contract module which provides a basic access control mechanism, where
  * there is an account (an owner) that can be granted exclusive access to
@@ -18,7 +17,7 @@ import "./Initializable.sol";
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
  */
-abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract Ownable is Context {
     address private _owner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -26,13 +25,10 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
-    function __Ownable_init() internal initializer {
-        __Context_init_unchained();
-        __Ownable_init_unchained();
-    }
-
-    function __Ownable_init_unchained() internal initializer {
-        _transferOwnership(_msgSender());
+    constructor () {
+        address msgSender = _msgSender();
+        _owner = msgSender;
+        emit OwnershipTransferred(address(0), msgSender);
     }
 
     /**
@@ -58,7 +54,8 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
      * thereby removing any functionality that is only available to the owner.
      */
     function renounceOwnership() public virtual onlyOwner {
-        _transferOwnership(address(0));
+        emit OwnershipTransferred(_owner, address(0));
+        _owner = address(0);
     }
 
     /**
@@ -67,17 +64,7 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
      */
     function transferOwnership(address newOwner) public virtual onlyOwner {
         require(newOwner != address(0), "Ownable: new owner is the zero address");
-        _transferOwnership(newOwner);
-    }
-
-    /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Internal function without access restriction.
-     */
-    function _transferOwnership(address newOwner) internal virtual {
-        address oldOwner = _owner;
+        emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
-        emit OwnershipTransferred(oldOwner, newOwner);
     }
-    uint256[49] private __gap;
 }

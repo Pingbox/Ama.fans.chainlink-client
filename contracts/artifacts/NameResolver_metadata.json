@@ -56,7 +56,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"AmaCLClientStorage.sol": "NameResolver"
+			"AmaChainLinkClientStorage.sol": "NameResolver"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -65,17 +65,17 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
-		"AmaCLClientStorage.sol": {
-			"keccak256": "0x46a4da5f7360a7162bd5a0a4dcfe5d31093984a7772752d0a414a339d717f093",
+		"AmaChainLinkClientStorage.sol": {
+			"keccak256": "0x1b1b41f2964efc6f47285511eef9d26ed36963beba8b0770f65152fe2d9e037d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7b36edc8c621da95d51f3e67e5dccb1bc1cc5c6783c8560b11f6b95344f6babd",
-				"dweb:/ipfs/QmcF8pa1uHY6VauVr6KwWS1mps2LH78xnByonkAZ7MRj8k"
+				"bzz-raw://6886d37e514cc920d31fc89f19ea1ebd9d8c25e4f04cd1606773feea076ac95a",
+				"dweb:/ipfs/QmdwEqLBBZTzijz2AEdHeb23ZTsMrNXNHKsGWdGcVSNTiZ"
 			]
 		},
 		"ENSInterface.sol": {

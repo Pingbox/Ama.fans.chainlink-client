@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.0+commit.c7dfd78e"
+		"version": "0.7.0+commit.9e61f92b"
 	},
 	"language": "Solidity",
 	"output": {
@@ -18,7 +18,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/utils/ContextUpgradeable.sol": "ContextUpgradeable"
+			"utils/ContextUpgradeable.sol": "ContextUpgradeable"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -26,34 +26,34 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
 	"sources": {
-		"contracts/proxy/Initializable.sol": {
-			"keccak256": "0xad34888e13812aa858ad34f2e7fc568d51001eb034f99164a149f709d2a56841",
+		"proxy/Initializable.sol": {
+			"keccak256": "0xa7de2bf10327d45f885bb983636baa8eccc2471852d201f6ff2ac3b4703fa053",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7d90ed6cecbfa8d512092084de525b44c21e5d21585f77bbf7461e4118708aa8",
-				"dweb:/ipfs/QmbtmRmwzNfDv8RJkCJUSftht2u4KAVmLj6joRodfVdmCc"
+				"bzz-raw://528889dfa91ab98eb211b6b34df0bc25f07a6fa61e4828ad04115af29074c169",
+				"dweb:/ipfs/QmactRYyK7fqWBrGX9mZDk7eH9ysuZCTQ3fo9mjN9LDwNU"
 			]
 		},
-		"contracts/utils/Address.sol": {
-			"keccak256": "0xd217e5030771ed77e0df8d1028f05abdaba7df6991fc6e03229d8624c1999d9a",
+		"utils/AddressUpgradeable.sol": {
+			"keccak256": "0x1d61fd2a04943df98d9fcbe6801a5f1a1fac175f988854a3946998703be96977",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6f918396df8f3717ca4d2f978757604eb540b256a87e898e30105fab09010666",
-				"dweb:/ipfs/QmczhRz4N5D1vfWU1EGAGStDP57zNMLmqde9GBW3eFbAHR"
+				"bzz-raw://0402187f1ff780ffb4e0326074f3f07468859aadbfa27fcccc3077aaf7b4298c",
+				"dweb:/ipfs/QmeNF1Vn1wwBYc6GexiBH2nSQgfUDNekpsy5STdsKy8Ftu"
 			]
 		},
-		"contracts/utils/ContextUpgradeable.sol": {
-			"keccak256": "0x89d048e8c87976040bc58e0aa30fa0674e620f0a58ed6e28532847dc79051a82",
+		"utils/ContextUpgradeable.sol": {
+			"keccak256": "0xcb7db52926ed51f054aa7f1be562ebf63de8c54930e5c35f2163b3bd7f5f2096",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2a0b98de3d90602f52b3c6f6fbf4de5b614c356269932db83c79f78762f50fd5",
-				"dweb:/ipfs/QmWaygHDjwnuEZSaTQrgU38HhBkhU752YUFS1daaA6H4YD"
+				"bzz-raw://b063ea0f56b13b581f2bf6c24dbe88c2e9c8e78eabbb3f7f914546859a5154fd",
+				"dweb:/ipfs/QmaTUae9eomg5DLNV3KLgfzLjkwhBe3HDapSYoJbWn72Ex"
 			]
 		}
 	},
