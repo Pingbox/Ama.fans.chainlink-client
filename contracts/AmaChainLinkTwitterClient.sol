@@ -9,6 +9,8 @@ import "./utils/ContextUpgradeable.sol";
 import "./IAmaENSClient.sol";
 import "./chainlink/v0.7/interfaces/LinkTokenInterface.sol";
 import "./access/AccessControlUpgradeable.sol";
+import "./BaseRelayRecipient.sol";
+
 
 interface IAmaSocialNetworkVerification{    
         function userDetails(address _address) external view  returns (string memory, string memory, string memory, string memory, uint256, bool);
@@ -22,11 +24,12 @@ interface IAmaSocialNetworkVerification{
 
 
 
-contract AmaChainLinkTwitterClient is IAmaSocialNetworkVerification, 
+contract AmaChainLinkTwitterClient is 
+                    BaseRelayRecipient,
+                    IAmaSocialNetworkVerification, 
                     AmaChainLinkClientStorage, 
                     Initializable, 
                     ChainlinkClient, 
-                    ContextUpgradeable, 
                     AccessControlUpgradeable{
     using Chainlink for Chainlink.Request;
     event RequestFulfilled(
@@ -60,9 +63,38 @@ contract AmaChainLinkTwitterClient is IAmaSocialNetworkVerification,
         return keccak256(abi.encodePacked(_string));
     }
 
-        function  initialize( 
+    function _msgSender()
+        internal
+        view
+        virtual
+        override(ContextUpgradeable, BaseRelayRecipient)
+        returns (address payable sender)
+    {
+        //ERC2771ContextUpgradeable._msgSender();
+        return BaseRelayRecipient._msgSender();
+    }
+
+    function _msgData()
+        internal
+        view
+        virtual
+        override(ContextUpgradeable, BaseRelayRecipient)
+        returns (bytes memory)
+    {
+        //BaseRelayRecipient._msgData();
+        return BaseRelayRecipient._msgData();
+    }
+
+    function versionRecipient() external  override(IRelayRecipient) pure returns (string memory){
+        return "1";
+    }
+
+
+
+    function  initialize( 
                     address _owner,
                     address _oracle,
+                    address _trustedForwarder,
                     bytes32 _jobId) external initializer{
 
         //rinkeBy
@@ -77,7 +109,7 @@ contract AmaChainLinkTwitterClient is IAmaSocialNetworkVerification,
         jobId = _jobId;
         fee = 1 * 10 ** 16; // (Varies by network and job)
         expiration = block.timestamp + 15 minutes;
-
+        trustedForwarder = _trustedForwarder;
         // ensContract = ENS(_ensAddress);
         // amaENSclientContract = IAmaENSClient(_amaENSclientAddress);
         __Context_init_unchained();
