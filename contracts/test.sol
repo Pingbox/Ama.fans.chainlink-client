@@ -2,8 +2,11 @@
 pragma solidity ^0.7.0;
 pragma experimental ABIEncoderV2;
 
+import "./Strings.sol";
+
 contract Test{
-        mapping(bytes32 => address) public usernameToAddress;
+    using StringUtils for *;
+    mapping(bytes32 => address) public usernameToAddress;
 
 
 
@@ -19,6 +22,19 @@ contract Test{
 
 
         }
+
+    function hh(string memory usernameOne)
+        external view returns(string memory){
+            return usernameOne.lower();
+        }
+
+
+
+    // function compare(string memory usernameOne, 
+    //         string memory usernameTwo)
+    //         external pure returns (bool){
+    //     return abi.encodePacked(keccak256(usernameOne.lower())) == abi.encodePacked(keccak256(usernameTwo.lower()));
+    // }
 
     function callt(string memory username)
         external {

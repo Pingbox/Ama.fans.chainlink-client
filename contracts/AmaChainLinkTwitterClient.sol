@@ -11,6 +11,7 @@ import "./chainlink/v0.7/interfaces/LinkTokenInterface.sol";
 import "./access/AccessControlUpgradeable.sol";
 import "./BaseRelayRecipient.sol";
 
+import "./Strings.sol";
 
 interface IAmaSocialNetworkVerification{    
         function userDetails(address _address) external view  returns (string memory, string memory, string memory, string memory, uint256, bool);
@@ -32,6 +33,8 @@ contract AmaChainLinkTwitterClient is
                     ChainlinkClient, 
                     AccessControlUpgradeable{
     using Chainlink for Chainlink.Request;
+    using StringUtils for *;
+
     event RequestFulfilled(
         address indexed _address,
         bytes  data
@@ -138,7 +141,9 @@ contract AmaChainLinkTwitterClient is
     }
     
     modifier twitterUsernameVerified(string memory _username){
-        bytes32 _hash = keccakHash(_username);
+        string memory usernameLowerCase = _username.lower();
+
+        bytes32 _hash = keccakHash(usernameLowerCase);
         require(usernameToAddress[_hash] == address(0x0), "TWITTER_USERNAME_ALREADY_CLAIMED");
         _;
     }
@@ -168,7 +173,8 @@ contract AmaChainLinkTwitterClient is
                             returns(bytes32){
 
     	Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfillBytes.selector);
-    	req.add("twitter_username", _username);
+        string memory usernameLowerCase = _username.lower();
+    	req.add("twitter_username", usernameLowerCase);
         req.addBytes("address_bytes", abi.encodePacked(_msgSender()));
         req.add("path", "result");
 
@@ -177,7 +183,7 @@ contract AmaChainLinkTwitterClient is
         bytes32  _reqID =  requestOracleData(req, fee);
 
     	results[_msgSender()].reqID = _reqID;
-    	results[_msgSender()].username = _username;
+    	results[_msgSender()].username = usernameLowerCase;
 
     	addressRequestIDs[_reqID] = _msgSender();
 
