@@ -22,9 +22,6 @@ interface IAmaSocialNetworkVerification{
         function getEncodedData() external view returns(bytes memory);
 }
 
-
-
-
 contract AmaChainLinkTwitterClient is 
                     BaseRelayRecipient,
                     IAmaSocialNetworkVerification, 
@@ -34,7 +31,6 @@ contract AmaChainLinkTwitterClient is
                     AccessControlUpgradeable{
     using Chainlink for Chainlink.Request;
     using StringUtils for *;
-
     event RequestFulfilled(
         address indexed _address,
         bytes  data
@@ -98,6 +94,7 @@ contract AmaChainLinkTwitterClient is
                     address _owner,
                     address _oracle,
                     address _trustedForwarder,
+                    address _chainlinkTokenAddress,
                     bytes32 _jobId) external initializer{
 
         //rinkeBy
@@ -107,7 +104,7 @@ contract AmaChainLinkTwitterClient is
         
         
         //Fuji Testnet        
-        setChainlinkToken(0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846);
+        setChainlinkToken(_chainlinkTokenAddress);
         setChainlinkOracle(_oracle);
         jobId = _jobId;
         fee = 1 * 10 ** 16; // (Varies by network and job)
@@ -299,6 +296,20 @@ contract AmaChainLinkTwitterClient is
         require(_link.transfer(_address, _link.balanceOf(address(this))), "UNABLE_TO_TRANSFER");
     }
     
+    function withdrawLinkWithAddress(address linkTokenAddress, address _address) 
+            public
+            onlyRole(GOVERNANCE_ROLE) {
+        LinkTokenInterface _link = LinkTokenInterface(linkTokenAddress);
+        require(_link.transfer(_address, _link.balanceOf(address(this))), "UNABLE_TO_TRANSFER");
+    }
+
+    function updateChainlinkAddress(address _chainlinkTokenAddress) 
+            public
+            onlyRole(GOVERNANCE_ROLE) {
+                setChainlinkToken(_chainlinkTokenAddress);
+
+    }
+
     function balance() 
         public 
         view  
