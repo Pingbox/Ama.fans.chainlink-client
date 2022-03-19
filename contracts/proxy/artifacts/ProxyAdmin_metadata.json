@@ -202,7 +202,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -225,11 +225,11 @@
 			]
 		},
 		"proxy/ProxyAdmin.sol": {
-			"keccak256": "0x05ddc276c990e22c1a4ed0eb2ad0e976cb3bd25d19f28284c2765400aefc9417",
+			"keccak256": "0xfebde7a7f61c571566253fdddc71c9108c445a4c941d12e5e6096b968a2f961b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5c4d7d4603db9dfeb0c1c147383fad5672ba0681950a0c94b1bb31bd9c1ba1f5",
-				"dweb:/ipfs/QmXBiA5deumPgxdCeiuJeGhvM9q7YLzyjCFAPpkPbNiSLF"
+				"bzz-raw://dbaefc320eba923adc3bb71c6a6cb11858cede81b9430d110131cfd552439f5d",
+				"dweb:/ipfs/QmQbqyowk3jQkbZwmT7gkM4Uor32DEgssTb4SnxP6r9KCY"
 			]
 		},
 		"proxy/TransparentUpgradeableProxy.sol": {

@@ -24,7 +24,7 @@ interface IAmaSocialNetworkVerification{
 
 contract AmaChainLinkTwitterClient is 
                     BaseRelayRecipient,
-                    IAmaSocialNetworkVerification, 
+                    IAmaSocialNetworkVerification,
                     AmaChainLinkClientStorage, 
                     Initializable, 
                     ChainlinkClient, 
@@ -32,12 +32,12 @@ contract AmaChainLinkTwitterClient is
     using Chainlink for Chainlink.Request;
     using StringUtils for *;
     event RequestFulfilled(
-        address indexed address,
+        address indexed useraddress,
         bytes  data
         );
 
     event RequestErrored(
-        address indexed address,
+        address indexed useraddress,
         bytes  data
         );
         
