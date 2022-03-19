@@ -32,12 +32,12 @@ contract AmaChainLinkTwitterClient is
     using Chainlink for Chainlink.Request;
     using StringUtils for *;
     event RequestFulfilled(
-        address indexed _address,
+        address indexed address,
         bytes  data
         );
 
     event RequestErrored(
-        address indexed _address,
+        address indexed address,
         bytes  data
         );
         
